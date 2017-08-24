@@ -1,0 +1,145 @@
+# Environment file demonstrating how to pre-assign IPs to all node types
+resource_registry:
+  OS::TripleO::Controller::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::Controller::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::Compute::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::Compute::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::CephStorage::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::CephStorage::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::CephStorage::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  
+  OS::TripleO::Generic::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::Generic::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::Generic::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+  OS::TripleO::GenericR220::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::GenericR220::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_from_pool.yaml
+  OS::TripleO::GenericR220::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt_from_pool.yaml
+
+parameter_defaults:
+  ControllerIPs:
+    # Each controller will get an IP from the lists below, first controller, first IP
+    external:
+    - 172.21.1.100
+    - 172.21.1.101
+    - 172.21.1.102
+    storage:
+    - 192.168.170.201
+    - 192.168.170.202
+    - 192.168.170.203
+    storage_mgmt:
+    - 192.168.180.201
+    - 192.168.180.202
+    - 192.168.180.203
+  CephStorageIPs:
+    # Each ceph node will get an IP from the lists below, first node, first IP
+    external:
+    - 172.21.1.113
+    - 172.21.1.114
+    - 172.21.1.115
+    - 172.21.1.116
+    - 172.21.1.117
+    storage:
+    - 192.168.170.211
+    - 192.168.170.212
+    - 192.168.170.213
+    - 192.168.170.214
+    - 192.168.170.215
+    storage_mgmt:
+    - 192.168.180.211
+    - 192.168.180.212
+    - 192.168.180.213
+    - 192.168.180.214
+    - 192.168.180.215
+  NovaComputeIPs:
+    # Each compute node will get an IP from the lists below, first node, first IP
+    external:
+    - 172.21.1.104
+    - 172.21.1.105
+    - 172.21.1.106
+    - 172.21.1.107
+    - 172.21.1.108
+    - 172.21.1.109
+    - 172.21.1.110
+    - 172.21.1.111
+    - 172.21.1.112
+    storage:
+    - 192.168.170.216
+    - 192.168.170.217
+    - 192.168.170.218
+    - 192.168.170.219
+    - 192.168.170.220
+    - 192.168.170.221
+    - 192.168.170.222
+    - 192.168.170.223
+    - 192.168.170.224
+    storage_mgmt:
+    - 192.168.180.216
+    - 192.168.180.217
+    - 192.168.180.218
+    - 192.168.180.219
+    - 192.168.180.220
+    - 192.168.180.221
+    - 192.168.180.222
+    - 192.168.180.223
+    - 192.168.180.224
+  GenericIPs:
+    external:
+    - 172.21.1.100
+    - 172.21.1.101
+    - 172.21.1.102
+    - 172.21.1.113
+    - 172.21.1.114
+    - 172.21.1.115
+    - 172.21.1.116
+    - 172.21.1.117
+    storage:
+    - 192.168.170.201
+    - 192.168.170.202
+    - 192.168.170.203
+    - 192.168.170.211
+    - 192.168.170.212
+    - 192.168.170.213
+    - 192.168.170.214
+    - 192.168.170.215
+    storage_mgmt:
+    - 192.168.180.201
+    - 192.168.180.202
+    - 192.168.180.203
+    - 192.168.180.211
+    - 192.168.180.212
+    - 192.168.180.213
+    - 192.168.180.214
+    - 192.168.180.215
+  GenericR220IPs:
+    external:
+    - 172.21.1.104
+    - 172.21.1.105
+    - 172.21.1.106
+    - 172.21.1.107
+    - 172.21.1.108
+    - 172.21.1.109
+    - 172.21.1.110
+    - 172.21.1.111
+    - 172.21.1.112
+    storage:
+    - 192.168.170.216
+    - 192.168.170.217
+    - 192.168.170.218
+    - 192.168.170.219
+    - 192.168.170.220
+    - 192.168.170.221
+    - 192.168.170.222
+    - 192.168.170.223
+    - 192.168.170.224
+    storage_mgmt:
+    - 192.168.180.216
+    - 192.168.180.217
+    - 192.168.180.218
+    - 192.168.180.219
+    - 192.168.180.220
+    - 192.168.180.221
+    - 192.168.180.222
+    - 192.168.180.223
+    - 192.168.180.224

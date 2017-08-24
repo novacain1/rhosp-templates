@@ -1,0 +1,44 @@
+# This template configures each role to use a pair of bonded nics (nic2 and
+# nic3) and configures an IP address on each relevant isolated network
+# for each role. This template assumes use of network-isolation.yaml.
+#
+# FIXME: if/when we add functionality to heatclient to include heat
+# environment files we should think about using it here to automatically
+# include network-isolation.yaml.
+resource_registry:
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller.yaml
+  OS::TripleO::CephStorage::Net::SoftwareConfig: /home/stack/templates/nic-configs/ceph-storage.yaml
+
+parameter_defaults:
+  InternalApiNetCidr: 192.168.120.0/24
+  TenantNetCidr: 192.168.150.0/24
+  StorageNetCidr: 192.168.130.0/24
+  StorageMgmtNetCidr: 192.168.140.0/24
+  #ManagementNetCidr: 172.20.0.0/24
+  ExternalNetCidr: 172.21.158.0/24
+  InternalApiAllocationPools: [{'start': '192.168.120.10', 'end': '192.168.120.120'}]
+  TenantAllocationPools: [{'start': '192.168.150.10', 'end': '192.168.150.120'}]
+  StorageAllocationPools: [{'start': '192.168.130.10', 'end': '192.168.130.120'}]
+  StorageMgmtAllocationPools: [{'start': '192.168.140.10', 'end': '192.168.140.120'}]
+  #ManagementAllocationPools: [{'start': '172.20.0.10', 'end': '172.20.0.200'}]
+  # Leave room for floating IPs in the External allocation pool
+  ExternalAllocationPools: [{'start': '172.21.158.10', 'end': '172.21.158.50'}]
+  # Set to the router gateway on the external network
+  ExternalInterfaceDefaultRoute: 172.21.158.1
+  # Gateway router for the provisioning network (or Undercloud IP)
+  ControlPlaneDefaultRoute: 192.0.4.1
+  # The IP address of the EC2 metadata server. Generally the IP of the Undercloud
+  EC2MetadataIp: 192.0.4.1
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers: ["8.8.8.8","4.2.2.2"]
+  InternalApiNetworkVlanID: 120
+  StorageNetworkVlanID: 130
+  StorageMgmtNetworkVlanID: 140
+  TenantNetworkVlanID: 150
+  #ManagementNetworkVlanID: 205
+  ExternalNetworkVlanID: 172
+   # Set to "br-ex" if using floating IPs on native VLAN on bridge br-ex
+  NeutronExternalNetworkBridge: "''"
+  # Customize bonding options if required
+  BondInterfaceOptions: "mode=802.3ad miimon=100"

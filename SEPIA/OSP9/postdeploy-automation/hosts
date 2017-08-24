@@ -1,0 +1,25 @@
+[mons]
+192.168.170.201 ansible_ssh_user=heat-admin
+192.168.170.202 ansible_ssh_user=heat-admin
+192.168.170.203 ansible_ssh_user=heat-admin
+
+[rgws]
+192.168.170.201 ansible_ssh_user=heat-admin
+
+[osds]
+192.168.170.211 ansible_ssh_user=heat-admin
+192.168.170.212 ansible_ssh_user=heat-admin
+192.168.170.213 ansible_ssh_user=heat-admin
+192.168.170.214 ansible_ssh_user=heat-admin
+192.168.170.215 ansible_ssh_user=heat-admin
+
+[clients]
+192.168.170.216 ansible_ssh_user=heat-admin
+192.168.170.217 ansible_ssh_user=heat-admin
+192.168.170.218 ansible_ssh_user=heat-admin
+192.168.170.219 ansible_ssh_user=heat-admin
+192.168.170.220 ansible_ssh_user=heat-admin
+192.168.170.221 ansible_ssh_user=heat-admin
+192.168.170.222 ansible_ssh_user=heat-admin
+192.168.170.223 ansible_ssh_user=heat-admin
+192.168.170.224 ansible_ssh_user=heat-admin

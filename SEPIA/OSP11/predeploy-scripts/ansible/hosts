@@ -1,0 +1,6 @@
+[r730xd-idrac]
+172.21.32.6 ansible_ssh_user=root
+172.21.32.7 ansible_ssh_user=root
+172.21.32.8 ansible_ssh_user=root
+172.21.32.9 ansible_ssh_user=root
+172.21.32.11 ansible_ssh_user=root

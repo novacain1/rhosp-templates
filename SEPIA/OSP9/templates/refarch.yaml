@@ -1,0 +1,42 @@
+# reference architecture main heat template
+# This is meant to be passed as an environment file (via the '-e' or
+# --environment-file argument passed to the 'openstack overcloud deploy'
+# script.
+#
+# Post-Deployment Tasks (after core Puppet configuration)
+# - Wipes disk ready for ceph-ansible.
+#
+# NOTE: Most customization happens in this file for a RHEL-OSP deployment, 
+#       see parameter_defaults below and override to suit you own environment.
+# 
+# Contributors:
+# Dave Cain, Original Author
+# 
+
+resource_registry:
+  OS::TripleO::NodeExtraConfigPost: /home/stack/templates/post-allnodes.yaml
+
+parameter_defaults:
+
+#### GENERIC ENVIRONMENT OVERRIDES ####
+  CloudDomain: 'sepia.ceph.com'
+  ControllerSchedulerHints:
+      'capabilities:node': 'controller-%index%'
+  NeutronBridgeMappings: "datacentre:br-ex,floating:br-floating"
+  NeutronFlatNetworks: "datacentre,floating"
+  NovaComputeSchedulerHints:
+      'capabilities:node': 'compute-%index%'
+  Debug: false
+
+#### Hiera OVERRIDES ####
+  ExtraConfig:
+    ceph::profile::params::osd_journal_size: 5120
+    ceph::profile::params::osd_pool_default_pg_num: 256
+    ceph::profile::params::osd_pool_default_pgp_num: 256
+    ceph::profile::params::osd_pool_default_size: 3
+    ceph::profile::params::osd_pool_default_min_size: 2
+    ceph::profile::params::osds: {/srv/data: {}}
+    ceph::profile::params::manage_repo: false
+    ceph::profile::params::authentication_type: cephx
+    ceph_classes: []
+    ceph_osd_selinux_permissive: true

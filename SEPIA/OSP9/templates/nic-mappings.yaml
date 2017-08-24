@@ -1,0 +1,54 @@
+resource_registry:
+  OS::TripleO::NodeUserData: /home/stack/templates/firstboot/os-net-config-mappings.yaml
+parameter_defaults:
+  NetConfigDataLookup:
+    r630-02:
+      nic1: "24:6e:96:05:cd:28"
+      nic2: "24:6e:96:05:cd:2a"
+      nic3: "24:6e:96:05:cd:2c"
+      nic4: "24:6e:96:05:cd:2d"
+    r220-02:
+      nic1: "a0:36:9f:91:5b:a8"
+      nic2: "a0:36:9f:91:5b:aa"
+      nic3: "20:47:47:8c:cf:a8"
+      nic4: "20:47:47:8c:cf:aa"
+    r220-03:
+      nic1: "a0:36:9f:91:5b:8c"
+      nic2: "a0:36:9f:91:5b:8e"
+      nic3: "20:47:47:8c:ce:5e"
+      nic4: "20:47:47:8c:ce:60"
+    r220-04:
+      nic1: "a0:36:9f:91:5c:e0"
+      nic2: "a0:36:9f:91:5c:e2"
+      nic3: "20:47:47:87:b6:46"
+      nic4: "20:47:47:87:b6:48"
+    r220-05:
+      nic1: "a0:36:9f:91:5e:7c"
+      nic2: "a0:36:9f:91:5e:7e"
+      nic3: "20:47:47:87:dd:4c"
+      nic4: "20:47:47:87:dd:4e"
+    r220-06:
+      nic1: "a0:36:9f:91:5e:54"
+      nic2: "a0:36:9f:91:5e:56"
+      nic3: "20:47:47:87:da:82"
+      nic4: "20:47:47:87:da:84"
+    r220-07:
+      nic1: "a0:36:9f:91:59:d0"
+      nic2: "a0:36:9f:91:59:d2"
+      nic3: "20:47:47:8c:cb:70"
+      nic4: "20:47:47:8c:cb:72"
+    r220-08:
+      nic1: "a0:36:9f:91:5c:c8"
+      nic2: "a0:36:9f:91:5c:ca"
+      nic3: "20:47:47:8c:cc:84"
+      nic4: "20:47:47:8c:cc:86"
+    r220-09:
+      nic1: "a0:36:9f:91:5f:28"
+      nic2: "a0:36:9f:91:5f:2a"
+      nic3: "20:47:47:87:d9:08"
+      nic4: "20:47:47:87:d9:0a"
+    r220-10:
+      nic1: "a0:36:9f:91:5c:3c"
+      nic2: "a0:36:9f:91:5c:3e"
+      nic3: "20:47:47:8c:cd:20"
+      nic4: "20:47:47:8c:cd:22"

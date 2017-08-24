@@ -1,0 +1,68 @@
+{
+  "nodes": [
+    {
+      "name": "ocp-1",
+      "pm_addr": "192.0.4.125",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "profile:control,boot_option:local"
+    },
+    {
+      "name": "ocp-2",
+      "pm_addr": "192.0.4.126",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "profile:control,boot_option:local"
+    },
+    {
+      "name": "ocp-3",
+      "pm_addr": "192.0.4.127",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "profile:control,boot_option:local"
+    },
+    {
+      "name": "ocp-4",
+      "pm_addr": "192.0.4.128",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "profile:compute,boot_option:local"
+    },
+    {
+      "name": "ocp-5",
+      "pm_addr": "192.0.4.129",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "profile:compute,boot_option:local"
+    },
+    {
+      "name": "ocp-6",
+      "pm_addr": "192.0.4.130",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "profile:ceph-storage,boot_option:local"
+    },
+    {
+      "name": "ocp-7",
+      "pm_addr": "192.0.4.131",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "profile:ceph-storage,boot_option:local"
+    },
+    {
+      "name": "ocp-8",
+      "pm_addr": "192.0.4.132",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "profile:ceph-storage,boot_option:local"
+    }
+  ]
+}

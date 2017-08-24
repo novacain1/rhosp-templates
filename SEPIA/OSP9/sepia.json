@@ -1,0 +1,140 @@
+{
+  "nodes": [
+    {
+      "name": "r630-01",
+      "pm_addr": "172.21.32.3",
+      "pm_password": "calvin",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:controller-0,profile:control,boot_option:local"
+    },
+    {
+      "name": "r630-02",
+      "pm_addr": "172.21.32.4",
+      "pm_password": "calvin",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:controller-1,profile:control,boot_option:local"
+    },
+    {
+      "name": "r630-03",
+      "pm_addr": "172.21.32.5",
+      "pm_password": "calvin",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:controller-2,profile:control,boot_option:local"
+    },
+    {
+      "name": "r730xd-01",
+      "pm_addr": "172.21.32.6",
+      "pm_password": "calvin",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-0,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r730xd-02",
+      "pm_addr": "172.21.32.7",
+      "pm_password": "calvin",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-1,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r730xd-03",
+      "pm_addr": "172.21.32.8",
+      "pm_password": "calvin",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-2,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r730xd-04",
+      "pm_addr": "172.21.32.9",
+      "pm_password": "calvin",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-3,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r730xd-05",
+      "pm_addr": "172.21.32.11",
+      "pm_password": "calvin",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-4,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-02",
+      "pm_addr": "172.21.32.13",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-5,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-03",
+      "pm_addr": "172.21.32.14",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-6,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-04",
+      "pm_addr": "172.21.32.15",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-7,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-05",
+      "pm_addr": "172.21.32.16",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-8,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-06",
+      "pm_addr": "172.21.32.17",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-9,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-07",
+      "pm_addr": "172.21.32.18",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-10,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-08",
+      "pm_addr": "172.21.32.19",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-11,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-09",
+      "pm_addr": "172.21.32.20",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-12,profile:compute,boot_option:local"
+    },
+    {
+      "name": "r220-10",
+      "pm_addr": "172.21.32.21",
+      "pm_password": "ipmipass",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "root",
+      "capabilities": "node:compute-13,profile:compute,boot_option:local"
+    }
+  ]
+}

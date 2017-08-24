@@ -1,0 +1,26 @@
+# rhtelco main heat template
+# This is meant to be passed as an environment file (via the '-e' or
+# --environment-file argument passed to the 'openstack overcloud deploy'
+# script.
+#
+# Post-Deployment Tasks (after core Puppet configuration)
+# - Wipes disks before Red Hat Ceph Storage is deployed.
+#
+# NOTE: Most customization happens in this file for a RH-OSP deployment, 
+#       see parameter_defaults below and override to suit you own environment.
+# 
+# Contributors:
+# Dave Cain, Original Author
+# 
+
+resource_registry:
+  OS::TripleO::NodeExtraConfigPost: /home/stack/templates/post-allnodes.yaml
+
+parameter_defaults:
+
+#### GENERIC ENVIRONMENT OVERRIDES ####
+  #ControllerSchedulerHints:
+  #    'capabilities:node': 'controller-%index%'
+  #NovaComputeSchedulerHints:
+  #    'capabilities:node': 'compute-%index%'
+  Debug: false

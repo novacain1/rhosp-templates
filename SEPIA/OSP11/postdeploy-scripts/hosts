@@ -1,0 +1,16 @@
+[controller]
+172.21.1.100 ansible_ssh_user=heat-admin
+172.21.1.101 ansible_ssh_user=heat-admin
+172.21.1.102 ansible_ssh_user=heat-admin
+
+[storage]
+172.21.1.113 ansible_ssh_user=heat-admin
+172.21.1.114 ansible_ssh_user=heat-admin
+172.21.1.115 ansible_ssh_user=heat-admin
+#172.21.1.116 ansible_ssh_user=heat-admin
+#172.21.1.117 ansible_ssh_user=heat-admin
+
+[compute]
+172.21.1.104 ansible_ssh_user=heat-admin
+172.21.1.105 ansible_ssh_user=heat-admin
+172.21.1.106 ansible_ssh_user=heat-admin
