@@ -1,0 +1,41 @@
+# sepia lab main heat template
+# This is meant to be passed as an environment file (via the '-e' or
+# --environment-file argument passed to the 'openstack overcloud deploy'
+# command.
+#
+# NOTE: Most customization happens in this file for a RH-OSP deployment, 
+#       see parameter_defaults below and override to suit you own environment.
+# 
+# Contributors:
+# Dave Cain, Original Author
+# 
+
+resource_registry:
+  OS::TripleO::NodeUserData: /home/stack/templates/wipe-disks.yaml
+
+parameter_defaults:
+
+#### GENERIC ENVIRONMENT OVERRIDES ####
+  CephStorageCount: 0
+  CephStorageSchedulerHints:
+      'capabilities:node': 'cephstorage-%index%'
+  ComputeCount: 0
+  ControllerCount: 0
+  ControllerSchedulerHints:
+      'capabilities:node': 'controller-%index%'
+  Debug: false
+  GenericCount: 8
+  GenericR220Count: 2
+  GenericSchedulerHints:
+      'capabilities:node': 'generic-%index%'
+  GenericR220SchedulerHints:
+      'capabilities:node': 'genericr220-%index%'
+  NeutronBridgeMappings: "datacentre:br-ex,floating:br-floating"
+  NeutronFlatNetworks: "datacentre,floating"
+  NovaComputeSchedulerHints:
+      'capabilities:node': 'compute-%index%'
+  NtpServer: ['0.rhel.pool.ntp.org','1.rhel.pool.ntp.org','2.rhel.pool.ntp.org']
+  OvercloudGenericFlavor: baremetal
+  TimeZone: 'America/New_York'
+
+#### Hiera OVERRIDES ####

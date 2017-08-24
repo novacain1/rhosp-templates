@@ -1,0 +1,67 @@
+# This template configures each role to use a pair of bonded nics (nic2 and
+# nic3) and configures an IP address on each relevant isolated network
+# for each role. This template assumes use of network-isolation.yaml.
+#
+resource_registry:
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller.yaml
+  OS::TripleO::CephStorage::Net::SoftwareConfig: /home/stack/templates/nic-configs/ceph-storage.yaml
+  OS::TripleO::Generic::Net::SoftwareConfig: /home/stack/templates/nic-configs/generic.yaml
+  OS::TripleO::GenericR220::Net::SoftwareConfig: /home/stack/templates/nic-configs/generic-r220.yaml
+
+  OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::Compute::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt.yaml
+  
+  OS::TripleO::CephStorage::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::CephStorage::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+  OS::TripleO::CephStorage::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant.yaml
+
+# Port assignments for the generic role if used
+  OS::TripleO::Generic::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::Generic::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+  OS::TripleO::Generic::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::Generic::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt.yaml
+  OS::TripleO::Generic::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+
+# Port assignments for the genericr220 role if used
+  OS::TripleO::GenericR220::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::GenericR220::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+  OS::TripleO::GenericR220::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::GenericR220::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt.yaml
+  OS::TripleO::GenericR220::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+
+parameter_defaults:
+  InternalApiNetCidr: 192.168.140.0/24
+  TenantNetCidr: 192.168.201.0/24
+  StorageNetCidr: 192.168.170.0/24
+  StorageMgmtNetCidr: 192.168.180.0/24
+  #ManagementNetCidr: 172.20.0.0/24
+  ExternalNetCidr: 172.21.0.0/20
+  InternalApiAllocationPools: [{'start': '192.168.140.10', 'end': '192.168.140.200'}]
+  TenantAllocationPools: [{'start': '192.168.201.10', 'end': '192.168.201.200'}]
+  StorageAllocationPools: [{'start': '192.168.170.10', 'end': '192.168.170.200'}]
+  StorageMgmtAllocationPools: [{'start': '192.168.180.10', 'end': '192.168.180.200'}]
+  #ManagementAllocationPools: [{'start': '172.20.0.10', 'end': '172.20.0.200'}]
+  # Leave room for floating IPs in the External allocation pool
+  ExternalAllocationPools: [{'start': '172.21.1.151', 'end': '172.21.1.159'}]
+  # Set to the router gateway on the external network
+  ExternalInterfaceDefaultRoute: 172.21.15.254
+  # Gateway router for the provisioning network (or Undercloud IP)
+  ControlPlaneDefaultRoute: 192.168.120.6
+  # The IP address of the EC2 metadata server. Generally the IP of the Undercloud
+  EC2MetadataIp: 192.168.120.6
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers: ["172.21.0.1","208.113.130.62"]
+  InternalApiNetworkVlanID: 140
+  StorageNetworkVlanID: 170
+  StorageMgmtNetworkVlanID: 180
+  TenantNetworkVlanID: 201
+  #ManagementNetworkVlanID: 205
+  #ExternalNetworkVlanID: 1
+   # Set to "br-ex" if using floating IPs on native VLAN on bridge br-ex
+  NeutronExternalNetworkBridge: "''"
+  # Customize bonding options if required
+  BondInterfaceOptions:
+    "mode=802.3ad miimon=100 updelay=100 downdelay=100"
+  BondInterfaceOvsOptions:
+    "bond_mode=balance-slb lacp=active"
