@@ -1,0 +1,37 @@
+# rhlen-etsi main heat template
+# This is meant to be passed as an environment file (via the '-e' or
+# --environment-file argument passed to the 'openstack overcloud deploy'
+# script.
+#
+# Post-Deployment Tasks (after core Puppet configuration)
+# - Wipes disks before Red Hat Ceph Storage is deployed.
+#
+# NOTE: Most customization happens in this file for a RH-OSP deployment, 
+#       see parameter_defaults below and override to suit you own environment.
+# 
+# Contributors:
+# Dave Cain, Original Author
+# 
+
+resource_registry:
+  OS::TripleO::NodeUserData: /home/stack/templates/first-boot.yaml
+
+parameter_defaults:
+
+#### GENERIC ENVIRONMENT OVERRIDES ####
+  CephStorageSchedulerHints:
+      'capabilities:node': 'cephstorage-%index%'
+  ControllerSchedulerHints:
+      'capabilities:node': 'controller-%index%'
+  ControllerExtraConfig:
+     neutron::agents::dhcp::enable_isolated_metadata: true
+  Debug: false
+  NovaComputeSchedulerHints:
+      'capabilities:node': 'compute-%index%'
+  NtpServer: ['0.rhel.pool.ntp.org','1.rhel.pool.ntp.org','2.rhel.pool.ntp.org']
+  OvercloudGenericFlavor: baremetal
+  TimeZone: 'America/New_York'
+#  OvercloudGenericFlavor: baremetal
+#  GenericCount: 2
+#  GenericSchedulerHints:
+#      'capabilities:node': 'generic-%index%'

@@ -1,0 +1,17 @@
+[controllers]
+172.22.24.140 ansible_ssh_user=heat-admin
+172.22.24.141 ansible_ssh_user=heat-admin
+172.22.24.142 ansible_ssh_user=heat-admin
+
+[computes]
+172.22.24.143 ansible_ssh_user=heat-admin
+172.22.24.144 ansible_ssh_user=heat-admin
+172.22.24.145 ansible_ssh_user=heat-admin
+172.22.24.146 ansible_ssh_user=heat-admin
+172.22.24.147 ansible_ssh_user=heat-admin
+
+[storages]
+172.22.24.148 ansible_ssh_user=heat-admin
+172.22.24.149 ansible_ssh_user=heat-admin
+172.22.24.150 ansible_ssh_user=heat-admin
+172.22.24.151 ansible_ssh_user=heat-admin
