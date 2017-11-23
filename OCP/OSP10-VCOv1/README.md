@@ -1,5 +1,5 @@
-# ocplab-osp10
-Scripts and templates from Red Hat Telco Lab in RTP for the OPNFV Virtual Central Office project.  3 Controllers, 3 Computes, 6 Red Hat Ceph Storage nodes.
+# ocplab-osp10-vco
+Scripts and templates from Red Hat Telco Lab in RTP for the OPNFV Virtual Central Office project v1.0.  3 Controllers, 3 Computes, 6 Red Hat Ceph Storage nodes.
 
 ## Author
 Dave Cain
