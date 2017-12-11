@@ -21,7 +21,6 @@ time openstack overcloud deploy --templates \
   -e ~/templates/network-environment.yaml \
   -e ~/templates/ips-from-pool-all.yaml \
   -e ~/templates/storage-environment.yaml \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-radosgw.yaml \
   -e ~/templates/rhlen-etsi.yaml \
   -t 120 \
   --control-scale 3 \
@@ -41,7 +40,6 @@ time yes "" | openstack overcloud update stack overcloud -i --templates \
   -e ~/templates/ips-from-pool-all.yaml \
   -e ~/templates/network-environment.yaml \
   -e ~/templates/storage-environment.yaml \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-radosgw.yaml \
   -e ~/templates/rhlen-etsi.yaml
 }
 
