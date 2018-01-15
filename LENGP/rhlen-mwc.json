@@ -1,0 +1,28 @@
+{
+  "nodes": [
+    {
+      "name": "sr630-1",
+      "pm_addr": "192.0.3.125",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "node:controller-0,profile:control,boot_option:local"
+    },
+    {
+      "name": "sr630-2",
+      "pm_addr": "192.0.3.126",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "node:compute-0,profile:compute,boot_option:local"
+    },
+    {
+      "name": "sr630-3",
+      "pm_addr": "192.0.3.127",
+      "pm_password": "PASSW0RD",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "USERID",
+      "capabilities": "node:compute-1,profile:compute,boot_option:local"
+    }
+  ]
+}
