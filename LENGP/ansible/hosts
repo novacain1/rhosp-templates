@@ -1,0 +1,6 @@
+[controllers]
+172.21.172.3 ansible_ssh_user=heat-admin
+
+[computes]
+172.21.172.4 ansible_ssh_user=heat-admin
+172.21.172.5 ansible_ssh_user=heat-admin
