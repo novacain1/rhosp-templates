@@ -120,7 +120,6 @@ resources:
                 -
                   type: interface
                   name: enp47s0f1
-                  # force the MAC address of the bridge to this interface
                   primary: true
                 -
                   type: vlan
@@ -164,18 +163,6 @@ resources:
                 #    -
                 #      default: true
                 #      next_hop: {get_param: ManagementInterfaceDefaultRoute}
-            -
-              type: ovs_user_bridge
-              name: br-link
-              use_dhcp: false
-              members:
-                -
-                  type: ovs_dpdk_port
-                  name: dpdk0
-                  members:
-                    -
-                      type: interface
-                      name: enp134s0f0
 
 outputs:
   OS::stack_id:

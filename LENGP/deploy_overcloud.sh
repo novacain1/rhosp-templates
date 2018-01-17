@@ -23,13 +23,13 @@ time openstack overcloud deploy --templates \
   -e ~/templates/ips-from-pool-all.yaml \
   -e ~/templates/rhlen-mwc.yaml \
   --timeout 100 \
-  --log-file overcloud_deployment.log \
   --control-scale 1 \
   --compute-scale 2 \
   --compute-flavor compute \
   --control-flavor control \
   --stack rhlen-mwc \
   --ntp-server pool.ntp.org \
+  --log-file overcloud_deployment.log \
   --neutron-network-type vxlan \
   --neutron-tunnel-types vxlan
 }

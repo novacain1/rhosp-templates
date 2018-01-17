@@ -58,10 +58,11 @@ echo "Creating Overcloud postdeployment validation/verification"
 source ~/rhlen-mwcrc
 
 #upload fedora 27 cloud image
-echo "Uploading fedora 27 cloud image to image store"
+echo "Uploading fedora 27 and rhel7 cloud images to image store"
 cd $HOME/postdeploy-scripts/
 curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/27/CloudImages/x86_64/images/Fedora-Cloud-Base-27-1.6.x86_64.qcow2 > fedora27.qcow2
 openstack image create --disk-format qcow2 --container-format bare --file $HOME/postdeploy-scripts/fedora27.qcow2  --public fedora27
+openstack image create --disk-format qcow2 --container-format bare --file $HOME/postdeploy-scripts/rhel-guest-image-7.4-263.x86_64.qcow2 --public rhel7
 
 #create new project/user/tenant
 openstack user create redhat --password redhat --email redhat@example.com
@@ -75,9 +76,11 @@ nova quota-update $tenant --instances 500 --cores 500 --ram 1228800
 cinder quota-update --volumes 500 --gigabytes 216000 $tenant
 neutron quota-update --tenant_id $tenant --port 100000 --floatingip 200
 
-#create custom flavor
+#create custom flavors
 openstack flavor create --public m1.tiny --id auto --ram 512 --disk 1 --public
 openstack flavor create --public m1.medium --id auto --ram 4096 --disk 10 --public
+openstack flavor create --id auto --ram 1024 --disk 10 --vcpus 2 dpdk-flavor.s1 --public
+openstack flavor set --property hw:mem_page_size=large dpdk-flavor.s1
 
 #security groups inbound exception as admin user
 admin_project_id=$(openstack project list | grep admin | awk '{print $2}')
@@ -94,37 +97,47 @@ neutron security-group-rule-create --direction ingress --protocol icmp default
 neutron security-group-rule-create --direction ingress --protocol tcp --port_range_min 22 --port_range_max 22 default
 
 # Keypair creation as redhat user for SSH through floating ip
-nova keypair-add dcain > ~/dcain.pem
+openstack keypair create dcain > ~/dcain.pem
 chmod 600 ~/dcain.pem
 
-# Tenant Networks as redhat user
-#openstack network create tenant1 --provider-network-type=vxlan --provider-segment 100
-#openstack subnet create --network tenant1 --subnet-range 10.10.0.0/18 tenant1-subnet
-#neutron net-create tenant1
-#neutron subnet-create --name tenant_subnet --gateway 10.10.0.1 tenant1 10.10.0.0/18 --dns-nameserver 8.8.8.8 --allocation-pool start=10.10.0.5,end=10.10.63.254
-#neutron router-create tenant1-router
-#subnet_id=$(neutron subnet-list | awk ' /10.10./ {print $2 } ')
-#neutron router-interface-add tenant1-router $subnet_id
-
-#provider DPDK network as admin user
+# Tenant Networks as admin user
 source ~/rhlen-mwcrc
-openstack network create provider --provider-physical-network dpdk --provider-network-type vlan --provider-segment 172 --share
-openstack subnet create dpdk-subnet --network dpdk --dhcp --allocation-pool start=172.21.172.171,end=172.21.172.254 --dns-nameserver 8.8.8.8 --gateway 172.21.172.1 --subnet-range 172.21.172.0/24
+openstack network create mgmt200 --provider-physical-network dpdk --provider-network-type vlan --provider-segment 200 --share
+openstack subnet create mgmt200-subnet --network mgmt200 --dhcp --dns-nameserver 8.8.8.8 --subnet-range 172.16.200.0/24
+source ~/redhatovercloudrc
+openstack router create mgmt200-router
+source ~/rhlen-mwcrc
+subnet_id=$(neutron subnet-list | awk ' /172.16.200./ {print $2 } ')
+openstack router add subnet mgmt200-router $subnet_id
+
+#provider DPDK networks as admin user
+source ~/rhlen-mwcrc
+openstack network create dpdk211 --provider-physical-network dpdk --provider-network-type vlan --provider-segment 211 --share
+openstack subnet create dpdk211-subnet --network dpdk211 --dhcp --allocation-pool start=172.16.211.2,end=172.16.211.100 --dns-nameserver 8.8.8.8 --gateway 172.16.211.1 --subnet-range 172.16.211.0/24
+openstack network create dpdk212 --provider-physical-network dpdk --provider-network-type vlan --provider-segment 212 --share
+openstack subnet create dpdk212-subnet --network dpdk212 --dhcp --allocation-pool start=172.16.212.2,end=172.16.212.100 --dns-nameserver 8.8.8.8 --gateway 172.16.212.1 --subnet-range 172.16.212.0/24
+
+#provider network as admin user for non-DPDK setup
+#source ~/rhlen-mwcrc
+#openstack network create provider --provider-physical-network datacentre --provider-network-type vlan --provider-segment 211 --share
+#openstack subnet create provider-subnet --network provider --dhcp --allocation-pool start=172.16.211.2,end=172.16.211.100 --dns-nameserver 8.8.8.8 --gateway 172.16.211.1 --subnet-range 172.16.211.0/24
 
 # Floating IP network as admin user
-#openstack network create floating --external --provider-network-type vlan --provider-physical-network datacentre --provider-segment 24
-#openstack subnet create floating-subnet --network floating --no-dhcp --gateway 172.22.24.129 --allocation-pool start=172.22.24.171,end=172.22.24.254 --dns-nameserver 8.8.8.8 --subnet-range 172.22.24.128/25
-#route_id=$(neutron router-list | awk ' /tenant1/ { print $2 } ')
-#ext_net_id=$(neutron net-list | awk ' /floating/ { print $2 } ')
-#neutron router-gateway-set $route_id $ext_net_id
+openstack network create floating --external --provider-network-type vlan --provider-physical-network datacentre --provider-segment 172
+openstack subnet create floating-subnet --network floating --no-dhcp --gateway 172.21.172.1 --allocation-pool start=172.21.172.171,end=172.21.172.254 --dns-nameserver 8.8.8.8 --subnet-range 172.21.172.0/24
+
+# Floating IP allocate and router setup
+route_id=$(openstack router list | awk ' /mgmt200/ { print $2 } ')
+ext_net_id=$(openstack network list | awk ' /floating/ { print $2 } ')
+neutron router-gateway-set $route_id $ext_net_id
 
 # Floating IP allocate 15
-#source ~/redhatovercloudrc
-#for i in {1..3}
-#do
-#    nova floating-ip-create floating
-#done
-#}
+source ~/redhatovercloudrc
+for i in {1..3}
+do
+    openstack floating ip create floating
+done
+
 
 if [ $1 = "lldp" ]; then
     lldp
