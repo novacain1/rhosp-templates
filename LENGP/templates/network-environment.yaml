@@ -4,9 +4,11 @@
 resource_registry:
   OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
   OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller.yaml
+  OS::TripleO::Services::ComputeNeutronOvsAgent: /usr/share/openstack-tripleo-heat-templates/puppet/services/neutron-ovs-dpdk-agent.yaml
   OS::TripleO::NodeUserData: /home/stack/templates/first-boot.yaml
   OS::TripleO::NodeExtraConfigPost: /home/stack/templates/post-install.yaml
-  
+
+# Network definitions  
   OS::TripleO::Network::External: /usr/share/openstack-tripleo-heat-templates/network/external.yaml
   OS::TripleO::Network::InternalApi: /usr/share/openstack-tripleo-heat-templates/network/internal_api.yaml
   OS::TripleO::Network::StorageMgmt: /usr/share/openstack-tripleo-heat-templates/network/storage_mgmt.yaml
@@ -75,9 +77,11 @@ parameter_defaults:
   # The tenant network type for Neutron (vlan or vxlan).
   NeutronNetworkType: 'vlan'
   # The OVS logical->physical bridge mappings to use.
-  NeutronBridgeMappings: 'dpdk:br-link'
+  #NeutronBridgeMappings: 'dpdk:br-link'
+  NeutronBridgeMappings: 'datacentre:br-ex,dpdk:br-link'
   # The Neutron ML2 and OpenVSwitch vlan mapping range to support.
-  NeutronNetworkVLANRanges: 'dpdk:172:172'
+  #NeutronNetworkVLANRanges: 'dpdk:211:211'
+  NeutronNetworkVLANRanges: 'datacentre:172:200,dpdk:211:212'
 
 
   ########################

@@ -4,3 +4,7 @@
 [computes]
 172.21.172.4 ansible_ssh_user=heat-admin
 172.21.172.5 ansible_ssh_user=heat-admin
+
+[vms]
+172.21.172.176 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
+172.21.172.177 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
