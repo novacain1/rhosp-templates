@@ -60,7 +60,7 @@ parameter_defaults:
   # The IP address of the EC2 metadata server. Generally the IP of the Undercloud
   EC2MetadataIp: 192.168.192.1
   # Define the DNS servers (maximum 2) for the overcloud nodes
-  DnsServers: ["8.8.8.8","4.2.2.2"]
+  DnsServers: ["172.21.172.1","8.8.8.8"]
   InternalApiNetworkVlanID: 120
   StorageNetworkVlanID: 130
   StorageMgmtNetworkVlanID: 140
@@ -90,7 +90,7 @@ parameter_defaults:
   ## NeutronDpdkCoreList and NeutronDpdkMemoryChannels are REQUIRED settings.
   ## Attempting to deploy DPDK without appropriate values will cause deployment to fail or lead to unstable deployments.
   # List of cores to be used for DPDK Poll Mode Driver
-  NeutronDpdkCoreList: "'1,41,21,61,2,42,22,62'"
+  NeutronDpdkCoreList: "'1,41,21,61,2,42,22,62,3,43,23,63,4,44,24,64'"
   # Number of memory channels to be used for DPDK
   NeutronDpdkMemoryChannels: "6"
   # NeutronDpdkSocketMemory
@@ -109,10 +109,10 @@ parameter_defaults:
   NovaReservedHostMemory: 4096
   # A list or range of physical CPU cores to reserve for virtual machine processes.
   # Example: NovaVcpuPinSet: ['4-12','^8'] will reserve cores from 4-12 excluding 8
-  NovaVcpuPinSet: "3-19,23-39,43-59,63-79"
+  NovaVcpuPinSet: "5-19,25-39,45-59,65-79"
   # An array of filters used by Nova to filter a node.These filters will be applied in the order they are listed,
   # so place your most restrictive filters first to make the filtering process more efficient.
-  NovaSchedulerDefaultFilters: "RamFilter,ComputeFilter,AvailabilityZoneFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,PciPassthroughFilter,NUMATopologyFilter"
+  NovaSchedulerDefaultFilters: "RamFilter,ComputeFilter,AvailabilityZoneFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,PciPassthroughFilter,NUMATopologyFilter,AggregateInstanceExtraSpecsFilter"
   # Kernel arguments for Compute node
   ComputeKernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=32 iommu=pt intel_iommu=on"
   # A list or range of physical CPU cores to be tuned.

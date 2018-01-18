@@ -29,9 +29,7 @@ time openstack overcloud deploy --templates \
   --control-flavor control \
   --stack rhlen-mwc \
   --ntp-server pool.ntp.org \
-  --log-file overcloud_deployment.log \
-  --neutron-network-type vxlan \
-  --neutron-tunnel-types vxlan
+  --log-file overcloud_deployment.log
 }
 
 function updateRHOSP {

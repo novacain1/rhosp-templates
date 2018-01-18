@@ -8,6 +8,7 @@
 # -------------------------------------------------------
 # HARD CODED VARIABLES
 inventory_file=$HOME/ansible/hosts
+stack_name=rhlen-mwc
 
 # -------------------------------------------------------
 # SAFETY CHECKS
@@ -80,7 +81,19 @@ neutron quota-update --tenant_id $tenant --port 100000 --floatingip 200
 openstack flavor create --public m1.tiny --id auto --ram 512 --disk 1 --public
 openstack flavor create --public m1.medium --id auto --ram 4096 --disk 10 --public
 openstack flavor create --id auto --ram 1024 --disk 10 --vcpus 2 dpdk-flavor.s1 --public
-openstack flavor set --property hw:mem_page_size=large dpdk-flavor.s1
+openstack flavor set \
+  --property hw:mem_page_size=large \
+  --property hw:cpu_policy=dedicated \
+  --property hw:cpu_thread_policy=prefer \
+  --property hw:numa_mempolicy=preferred \
+  --property hw:numa_nodes=1 \
+  dpdk-flavor.s1
+
+#aggregates and hosts
+openstack aggregate create --zone=dpdk1 dpdk1
+openstack aggregate create --zone=dpdk2 dpdk2
+openstack aggregate add host dpdk1 $stack_name-compute-0.localdomain
+openstack aggregate add host dpdk2 $stack_name-compute-1.localdomain
 
 #security groups inbound exception as admin user
 admin_project_id=$(openstack project list | grep admin | awk '{print $2}')
@@ -103,7 +116,7 @@ chmod 600 ~/dcain.pem
 # Tenant Networks as admin user
 source ~/rhlen-mwcrc
 openstack network create mgmt200 --provider-physical-network dpdk --provider-network-type vlan --provider-segment 200 --share
-openstack subnet create mgmt200-subnet --network mgmt200 --dhcp --dns-nameserver 8.8.8.8 --subnet-range 172.16.200.0/24
+openstack subnet create mgmt200-subnet --network mgmt200 --dhcp --dns-nameserver 172.21.172.1 --subnet-range 172.16.200.0/24
 source ~/redhatovercloudrc
 openstack router create mgmt200-router
 source ~/rhlen-mwcrc
@@ -113,9 +126,9 @@ openstack router add subnet mgmt200-router $subnet_id
 #provider DPDK networks as admin user
 source ~/rhlen-mwcrc
 openstack network create dpdk211 --provider-physical-network dpdk --provider-network-type vlan --provider-segment 211 --share
-openstack subnet create dpdk211-subnet --network dpdk211 --dhcp --allocation-pool start=172.16.211.2,end=172.16.211.100 --dns-nameserver 8.8.8.8 --gateway 172.16.211.1 --subnet-range 172.16.211.0/24
+openstack subnet create dpdk211-subnet --network dpdk211 --dhcp --allocation-pool start=172.16.211.2,end=172.16.211.100 --dns-nameserver 172.21.172.1 --gateway 172.16.211.1 --subnet-range 172.16.211.0/24
 openstack network create dpdk212 --provider-physical-network dpdk --provider-network-type vlan --provider-segment 212 --share
-openstack subnet create dpdk212-subnet --network dpdk212 --dhcp --allocation-pool start=172.16.212.2,end=172.16.212.100 --dns-nameserver 8.8.8.8 --gateway 172.16.212.1 --subnet-range 172.16.212.0/24
+openstack subnet create dpdk212-subnet --network dpdk212 --dhcp --allocation-pool start=172.16.212.2,end=172.16.212.100 --dns-nameserver 172.21.172.1 --gateway 172.16.212.1 --subnet-range 172.16.212.0/24
 
 #provider network as admin user for non-DPDK setup
 #source ~/rhlen-mwcrc
@@ -124,7 +137,7 @@ openstack subnet create dpdk212-subnet --network dpdk212 --dhcp --allocation-poo
 
 # Floating IP network as admin user
 openstack network create floating --external --provider-network-type vlan --provider-physical-network datacentre --provider-segment 172
-openstack subnet create floating-subnet --network floating --no-dhcp --gateway 172.21.172.1 --allocation-pool start=172.21.172.171,end=172.21.172.254 --dns-nameserver 8.8.8.8 --subnet-range 172.21.172.0/24
+openstack subnet create floating-subnet --network floating --no-dhcp --gateway 172.21.172.1 --allocation-pool start=172.21.172.171,end=172.21.172.254 --dns-nameserver 172.21.172.1 --subnet-range 172.21.172.0/24
 
 # Floating IP allocate and router setup
 route_id=$(openstack router list | awk ' /mgmt200/ { print $2 } ')
@@ -138,6 +151,10 @@ do
     openstack floating ip create floating
 done
 
+# instance booting
+#openstack server create --flavor dpdk-flavor.s1 --availability-zone dpdk1 --image rhel7 --nic net-id=38e99f1a-6168-4006-bfcf-15d7f1a50608 --nic net-id=50e66689-b208-4ca1-a681-55dc9db764f0 --key-name dcain vnf-0-1
+#openstack server create --flavor dpdk-flavor.s1 --availability-zone dpdk2 --image rhel7 --nic net-id=38e99f1a-6168-4006-bfcf-15d7f1a50608 --nic net-id=50e66689-b208-4ca1-a681-55dc9db764f0 --key-name dcain vnf-1-1
+}
 
 if [ $1 = "lldp" ]; then
     lldp
