@@ -114,7 +114,7 @@ parameter_defaults:
   # so place your most restrictive filters first to make the filtering process more efficient.
   NovaSchedulerDefaultFilters: "RamFilter,ComputeFilter,AvailabilityZoneFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,PciPassthroughFilter,NUMATopologyFilter,AggregateInstanceExtraSpecsFilter"
   # Kernel arguments for Compute node
-  ComputeKernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=32 iommu=pt intel_iommu=on"
+  ComputeKernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=64 iommu=pt intel_iommu=on"
   # A list or range of physical CPU cores to be tuned.
   # The given args will be appended to the tuned cpu-partitioning profile.
   HostIsolatedCoreList: "1-19,21-39,41-59,61-79"
