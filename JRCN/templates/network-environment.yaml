@@ -59,7 +59,7 @@ parameter_defaults:
   StorageMgmtAllocationPools: [{'start': '192.168.140.10', 'end': '192.168.140.120'}]
   #ManagementAllocationPools: [{'start': '172.20.0.10', 'end': '172.20.0.200'}]
   # Leave room for floating IPs in the External allocation pool
-  ExternalAllocationPools: [{'start': '172.21.25.140', 'end': '172.21.25.170'}]
+  ExternalAllocationPools: [{'start': '172.21.25.150', 'end': '172.21.25.170'}]
   # Set to the router gateway on the external network
   ExternalInterfaceDefaultRoute: 172.21.25.1
   # Gateway router for the provisioning network (or Undercloud IP)
@@ -80,15 +80,14 @@ parameter_defaults:
   #BondInterfaceOvsOptions: "mode=802.3ad miimon=100"
   
   # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
-  NeutronTunnelTypes: ''
+  #NeutronTunnelTypes: 'vxlan'
   # The tenant network type for Neutron (vlan or vxlan).
-  NeutronNetworkType: 'vlan'
+  #NeutronNetworkType: 'vxlan'
   # The OVS logical->physical bridge mappings to use.
-  NeutronBridgeMappings: 'datacentre:br-ex'
+  #NeutronBridgeMappings: 'datacentre:br-ex'
   #NeutronBridgeMappings: 'datacentre:br-ex,dpdk:br-link'
   # The Neutron ML2 and OpenVSwitch vlan mapping range to support.
-  NeutronNetworkVLANRanges: 'datacentre:25:26'
-  #NeutronNetworkVLANRanges: 'datacentre:172:200,dpdk:211:212'
+  #NeutronNetworkVLANRanges: 'datacentre:25:66'
 
 
   ########################
