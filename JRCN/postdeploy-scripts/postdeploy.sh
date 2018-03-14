@@ -62,7 +62,9 @@ source ~/vco2rc
 echo "Uploading fedora 27 and rhel7 cloud images to image store"
 cd $HOME/postdeploy-scripts/
 curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/27/CloudImages/x86_64/images/Fedora-Cloud-Base-27-1.6.x86_64.qcow2 > fedora27.qcow2
-openstack image create --disk-format qcow2 --container-format bare --file $HOME/postdeploy-scripts/fedora27.qcow2  --public fedora27
+qemu-img convert fedora27.qcow2 fedora27.raw
+openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/fedora27.raw  --public fedora27
+openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/rhel7.raw  --public rhel7
 #openstack image create --disk-format qcow2 --container-format bare --file $HOME/postdeploy-scripts/rhel-guest-image-7.4-263.x86_64.qcow2 --public rhel7
 
 #create new project/user/tenant
@@ -113,15 +115,12 @@ neutron security-group-rule-create --direction ingress --protocol tcp --port_ran
 openstack keypair create dcain > ~/dcain.pem
 chmod 600 ~/dcain.pem
 
-# Tenant Networks as admin user
-#source ~/vco2rc
-#openstack network create provider25 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 26 --share
-#openstack subnet create provider25-subnet --network provider25 --dhcp --dns-nameserver 192.168.0.254 --subnet-range 172.21.26.0/24
-#source ~/redhatovercloudrc
-#openstack router create provider25-router
-#source ~/vco2rc
-#subnet_id=$(neutron subnet-list | awk ' /172.16.200./ {print $2 } ')
-#openstack router add subnet mgmt200-router $subnet_id
+# Tenant Network as redhat user
+openstack network create tenant1
+openstack subnet create tenant1-subnet --network tenant1 --dhcp --allocation-pool start=172.255.1.2,end=172.255.1.254 --dns-nameserver 192.168.0.254 --gateway 172.255.1.1 --subnet-range 172.255.1.0/24
+openstack router create tenant1-router
+subnet_id=$(neutron subnet-list | awk ' /172.255.1./ {print $2 } ')
+openstack router add subnet tenant1-router $subnet_id
 
 #provider DPDK networks as admin user
 #source ~/rhlen-mwcrc
@@ -138,11 +137,10 @@ openstack subnet create provider26-subnet --network provider26 --dhcp --allocati
 # Floating IP network as admin user
 openstack network create floating --external --provider-network-type vlan --provider-physical-network datacentre --provider-segment 25
 openstack subnet create floating-subnet --network floating --no-dhcp --gateway 172.21.25.1 --allocation-pool start=172.21.25.171,end=172.21.25.254 --dns-nameserver 192.168.0.254 --subnet-range 172.21.25.0/24
-
-# Floating IP allocate and router setup
-#route_id=$(openstack router list | awk ' /mgmt200/ { print $2 } ')
-#ext_net_id=$(openstack network list | awk ' /floating/ { print $2 } ')
-#neutron router-gateway-set $route_id $ext_net_id
+route_id=$(openstack router list | awk ' /tenant1/ { print $2 } ')
+ext_net_id=$(openstack network list | awk ' /floating/ { print $2 } ')
+#openstack router set $route_id --external-gateway $ext_net_id
+neutron router-gateway-set $route_id $ext_net_id
 
 # Floating IP allocate 15
 source ~/redhatovercloudrc
