@@ -14,6 +14,7 @@
 172.21.25.141 ansible_ssh_user=heat-admin host_key_checking=False
 172.21.25.142 ansible_ssh_user=heat-admin host_key_checking=False
 
-#[vms]
-#172.21.172.176 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
-#172.21.172.177 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
+[vms]
+172.21.26.15 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
+172.21.26.14 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
+172.21.26.8 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
