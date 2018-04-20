@@ -80,8 +80,9 @@ cinder quota-update --volumes 500 --gigabytes 216000 $tenant
 neutron quota-update --tenant_id $tenant --port 100000 --floatingip 200
 
 #create custom flavors
-openstack flavor create --public m1.tiny --id auto --ram 512 --disk 1 --public
-openstack flavor create --public m1.medium --id auto --ram 4096 --disk 10 --public
+openstack flavor create --public baremetal --id auto --ram 1024 --disk 20 --vcpus 1 --property baremetal=true --public
+openstack flavor create --public m1.tiny --id auto --ram 512 --disk 1 --property baremetal=false --public
+openstack flavor create --public m1.medium --id auto --ram 4096 --disk 10 --property baremetal=false --public
 #openstack flavor create --id auto --ram 1024 --disk 10 --vcpus 2 dpdk-flavor.s1 --public
 #openstack flavor set \
 #  --property hw:mem_page_size=large \
@@ -92,6 +93,11 @@ openstack flavor create --public m1.medium --id auto --ram 4096 --disk 10 --publ
 #  dpdk-flavor.s1
 
 #aggregates and hosts
+openstack aggregate create --property baremetal=true baremetal-hosts
+openstack aggregate add host baremetal-hosts server-1-5
+openstack aggregate add host baremetal-hosts server-1-6
+openstack aggregate add host baremetal-hosts server-1-7
+openstack aggregate add host baremetal-hosts server-1-8
 #openstack aggregate create --zone=dpdk1 dpdk1
 #openstack aggregate create --zone=dpdk2 dpdk2
 #openstack aggregate add host dpdk1 $stack_name-compute-0.localdomain
@@ -129,10 +135,37 @@ openstack router add subnet tenant1-router $subnet_id
 #openstack network create dpdk212 --provider-physical-network dpdk --provider-network-type vlan --provider-segment 212 --share
 #openstack subnet create dpdk212-subnet --network dpdk212 --dhcp --allocation-pool start=172.16.212.2,end=172.16.212.100 --dns-nameserver 172.21.172.1 --gateway 172.16.212.1 --subnet-range 172.16.212.0/24
 
-#provider network as admin user for non-DPDK setup
+#provider networks as admin user for non-DPDK setup
+#vlans 26,67,201-208
 source ~/vco2rc
-openstack network create provider26 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 26 --share
-openstack subnet create provider26-subnet --network provider26 --dhcp --allocation-pool start=172.21.26.3,end=172.21.26.254 --dns-nameserver 192.168.0.254 --gateway 172.21.26.1 --subnet-range 172.21.26.0/24
+openstack network create internet26 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 26 --share
+openstack subnet create internet26-subnet --network internet26 --dhcp --allocation-pool start=172.21.26.5,end=172.21.26.254 --dns-nameserver 192.168.0.254 --gateway 172.21.26.1 --subnet-range 172.21.26.0/24
+openstack network create baremetal67 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 67 --share
+openstack subnet create baremetal67-subnet --network baremetal67 --dhcp --allocation-pool start=192.168.67.20,end=192.168.67.254 --dns-nameserver 192.168.0.254 --gateway 192.168.67.1 --subnet-range 192.168.67.0/24 --ip-version 4
+
+# Ironic in the overcloud baremetal router creation
+openstack router create baremetal67-router
+openstack router add subnet baremetal67-router baremetal67-subnet
+
+# Ironic in the overcloud deployment images
+openstack image create --container-format aki --disk-format aki --public --file ~/images/ironic-python-agent.kernel bm-deploy-kernel
+openstack image create --container-format ari --disk-format ari --public --file ~/images/ironic-python-agent.initramfs bm-deploy-ramdisk
+
+# Ironic in the overcloud user images rhel7
+cd ~/postdeploy-scripts/
+#export DIB_LOCAL_IMAGE=~/postdeploy-scripts/rhel-server-7.4-x86_64-kvm.qcow2
+#disk-image-create rhel7 baremetal -o rhel-image
+#KERNEL_ID=$(openstack image create --file rhel-image.vmlinuz --public --container-format aki --disk-format aki -f value -c id rhel-image.vmlinuz)
+#RAMDISK_ID=$(openstack image create --file rhel-image.initrd --public --container-format ari --disk-format ari -f value -c id rhel-image.initrd)
+#openstack image create --file rhel-image.qcow2 --public --container-format bare --disk-format qcow2 --property kernel_id=$KERNEL_ID --property ramdisk_id=$RAMDISK_ID rhel-image
+
+# Ironic in the overcloud user images centos7
+export DIB_LOCAL_IMAGE=~/postdeploy-scripts/CentOS-7-x86_64-GenericCloud.qcow2.qcow2
+disk-image-create centos7 baremetal dhcp-all-interfaces grub2 -o centos-image
+KERNEL_ID=$(openstack image create --file centos-image.vmlinuz --public --container-format aki --disk-format aki -f value -c id centos-image.vmlinuz)
+RAMDISK_ID=$(openstack image create --file centos-image.initrd --public --container-format ari --disk-format ari -f value -c id centos-image.initrd)
+openstack image create --file centos-image.qcow2 --public --container-format bare --disk-format qcow2 --property kernel_id=$KERNEL_ID --property ramdisk_id=$RAMDISK_ID centos-image
+
 
 # Floating IP network as admin user
 openstack network create floating --external --provider-network-type vlan --provider-physical-network datacentre --provider-segment 25

@@ -30,7 +30,7 @@ for node in $(openstack baremetal node list -c UUID -f value) ; do
   ironic --ironic-api-version 1.15 node-set-provision-state $node clean --clean-steps '[{"interface": "deploy", "step": "erase_devices_metadata"}]'
 done
 
-sleep 30m
+sleep 10m
 
 for node in $(openstack baremetal node list -c UUID -f value) ; do 
   ironic node-set-provision-state $node provide
