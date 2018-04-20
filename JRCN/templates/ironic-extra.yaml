@@ -1,0 +1,15 @@
+parameter_defaults:
+
+    NovaSchedulerDefaultFilters:
+        - RetryFilter
+        - AggregateInstanceExtraSpecsFilter
+        - AvailabilityZoneFilter
+        - RamFilter
+        - DiskFilter
+        - ComputeFilter
+        - ComputeCapabilitiesFilter
+        - ImagePropertiesFilter
+
+    IronicCleaningDiskErase: metadata
+    #ControllerExtraConfig:
+        #ironic::conductor::cleaning_network_uuid: 1b7deba4-e412-4ada-a4ba-0cd03ab39221

@@ -75,6 +75,7 @@ parameter_defaults:
     ceph::profile::params::osds:
       '/dev/sdb': {}
       '/dev/sdc': {}
+      '/dev/sdd': {}
 #      '/dev/sdb':
 #        journal: '/dev/sdf'
 #      '/dev/sdc':

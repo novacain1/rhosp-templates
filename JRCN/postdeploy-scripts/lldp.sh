@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in `ls /sys/class/net/ | grep 'eth\|ens\|eno'` ;
+for i in `ls /sys/class/net/ | grep 'eth\|ens\|eno\|enp'` ;
       do echo "enabling lldp for interface: $i" ;
       lldptool set-lldp -i $i adminStatus=rxtx  ;
       lldptool -T -i $i -V  sysName enableTx=yes;
