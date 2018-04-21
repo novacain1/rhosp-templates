@@ -5,6 +5,7 @@ resource_registry:
   OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
   OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller.yaml
   OS::TripleO::CephStorage::Net::SoftwareConfig: /home/stack/templates/nic-configs/ceph-storage.yaml
+  OS::TripleO::Generic1100::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
   #OS::TripleO::Services::ComputeNeutronOvsAgent: /usr/share/openstack-tripleo-heat-templates/puppet/services/neutron-ovs-dpdk-agent.yaml
   #OS::TripleO::NodeUserData: /home/stack/templates/first-boot.yaml
   #OS::TripleO::NodeExtraConfigPost: /home/stack/templates/post-install.yaml
@@ -45,6 +46,13 @@ resource_registry:
   OS::TripleO::CephStorage::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
   OS::TripleO::CephStorage::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt.yaml
   OS::TripleO::CephStorage::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+
+# Port assignments for the Generic1100 role
+  OS::TripleO::Generic1100::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::Generic1100::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+  OS::TripleO::Generic1100::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::Generic1100::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+  OS::TripleO::Generic1100::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant.yaml
 
 parameter_defaults:
   InternalApiNetCidr: 192.168.120.0/24
