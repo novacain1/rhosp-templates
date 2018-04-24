@@ -8,11 +8,17 @@
 172.21.25.147 ansible_ssh_user=heat-admin host_key_checking=False
 172.21.25.148 ansible_ssh_user=heat-admin host_key_checking=False
 172.21.25.149 ansible_ssh_user=heat-admin host_key_checking=False
+172.21.25.150 ansible_ssh_user=heat-admin host_key_checking=False
+172.21.25.151 ansible_ssh_user=heat-admin host_key_checking=False
 
 [storages]
 172.21.25.140 ansible_ssh_user=heat-admin host_key_checking=False
 172.21.25.141 ansible_ssh_user=heat-admin host_key_checking=False
 172.21.25.142 ansible_ssh_user=heat-admin host_key_checking=False
+
+[generic]
+172.21.25.152 ansible_ssh_user=heat-admin host_key_checking=False
+172.21.25.153 ansible_ssh_user=heat-admin host_key_checking=False
 
 [vms]
 #172.21.26.8 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
