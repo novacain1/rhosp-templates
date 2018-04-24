@@ -18,18 +18,20 @@ test "$(whoami)" != 'stack' && (echo "This must be run by the stack user on the 
 
 function deployRHOSP {
 time openstack overcloud deploy --templates \
+  -r ~/templates/roles_data_with_generic.yaml \
   -e ~/templates/network-environment.yaml \
   -e ~/templates/storage-environment.yaml \
   -e ~/templates/ips-from-pool-all.yaml \
   -e ~/templates/vco2.yaml \
   -e /usr/share/openstack-tripleo-heat-templates/environments/neutron-opendaylight-l3.yaml \
+  --libvirt-type kvm \
   --timeout 120 \
   --control-scale 3 \
-  --compute-scale 4 \
+  --compute-scale 6 \
   --ceph-storage-scale 3 \
-  --compute-flavor compute \
-  --control-flavor control \
-  --ceph-storage-flavor ceph-storage \
+  --compute-flavor baremetal \
+  --control-flavor baremetal \
+  --ceph-storage-flavor baremetal \
   --stack vco2 \
   --ntp-server pool.ntp.org \
   --log-file overcloud_deployment.log
@@ -37,6 +39,7 @@ time openstack overcloud deploy --templates \
 
 function updateRHOSP {
 time yes "" | openstack overcloud update stack vco2 -i --templates \
+  -r ~/templates/roles_data_with_generic.yaml \
   -e ~/templates/network-environment.yaml \
   -e ~/templates/storage-environment.yaml \
   -e ~/templates/ips-from-pool-all.yaml \
