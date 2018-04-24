@@ -3,6 +3,7 @@ resource_registry:
   OS::TripleO::Controller::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
   OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
   OS::TripleO::CephStorage::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
+  OS::TripleO::Generic1100::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external_from_pool.yaml
 
 parameter_defaults:
   ControllerIPs:
@@ -18,9 +19,16 @@ parameter_defaults:
     - 172.21.25.147
     - 172.21.25.148
     - 172.21.25.149
+    - 172.21.25.150
+    - 172.21.25.151
   CephStorageIPs:
     external:
     # Each storage will get an IP from the lists below, first storage, first IP
     - 172.21.25.140
     - 172.21.25.141
     - 172.21.25.142
+  Generic1100IPs:
+    external:
+    # Each generic will get an IP from the lists below, first storage, first IP
+    - 172.21.25.152
+    - 172.21.25.153
