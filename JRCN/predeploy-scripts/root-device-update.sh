@@ -9,6 +9,10 @@ ironic node-update server-1-1 remove properties/root_device
 ironic node-update server-1-2 remove properties/root_device
 ironic node-update server-1-3 remove properties/root_device
 ironic node-update server-1-4 remove properties/root_device
+ironic node-update server-1-5 remove properties/root_device
+ironic node-update server-1-6 remove properties/root_device
+ironic node-update server-1-7 remove properties/root_device
+ironic node-update server-1-8 remove properties/root_device
 ironic node-update server-2-1 remove properties/root_device
 ironic node-update server-2-2 remove properties/root_device
 ironic node-update server-2-3 remove properties/root_device
@@ -20,6 +24,10 @@ openstack overcloud node configure server-1-1 --root-device=sda
 openstack overcloud node configure server-1-2 --root-device=sda
 openstack overcloud node configure server-1-3 --root-device=sda
 openstack overcloud node configure server-1-4 --root-device=sda
+openstack overcloud node configure server-1-5 --root-device=sda
+openstack overcloud node configure server-1-6 --root-device=sda
+openstack overcloud node configure server-1-7 --root-device=sda
+openstack overcloud node configure server-1-8 --root-device=sda
 openstack overcloud node configure server-2-1 --root-device=sda
 openstack overcloud node configure server-2-2 --root-device=sda
 openstack overcloud node configure server-2-3 --root-device=sda
