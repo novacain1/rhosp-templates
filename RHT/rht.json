@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {
+      "name": "b200-07",
+      "pm_addr": "10.12.49.241",
+      "pm_password": "Redhat!23",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "capabilities": "node:controller-0,boot_option:local"
+    },
+    {
+      "name": "b200-01",
+      "pm_addr": "10.12.49.239",
+      "pm_password": "Redhat!23",
+      "pm_type": "pxe_ipmitool",
+      "pm_user": "admin",
+      "capabilities": "node:compute-0,boot_option:local"
+    }
+  ]
+}
