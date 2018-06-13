@@ -1,0 +1,42 @@
+resource_registry:
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller.yaml
+
+parameter_defaults:
+  ExternalNetCidr: '10.12.49.0/24'
+  InternalApiNetCidr: '192.168.20.0/24'
+  StorageNetCidr: '192.168.30.0/24'
+  StorageMgmtNetCidr: '192.168.40.0/24'
+  TenantNetCidr: '192.168.50.0/24'
+  ControlPlaneSubnetCidr: '25'
+
+  # Leave room if the external network is also used for floating IPs
+  ExternalAllocationPools: [{'start': '10.12.49.20', 'end': '10.12.49.49'}]
+  InternalApiAllocationPools: [{'start': '192.168.20.5', 'end': '192.168.20.100'}]
+  StorageAllocationPools: [{'start': '192.168.30.5', 'end': '192.168.30.100'}]
+  StorageMgmtAllocationPools: [{'start': '192.168.40.5', 'end': '192.168.40.100'}]
+  TenantAllocationPools: [{'start': '192.168.50.5', 'end': '192.168.50.100'}]
+
+  ExternalInterfaceDefaultRoute: '10.12.49.254'
+  ControlPlaneDefaultRoute: 192.168.67.11
+  EC2MetadataIp: 192.168.67.11
+  DnsServers: ["10.12.49.8","10.10.160.1","10.10.160.2"]
+
+# Static VIP Mappings
+  #ControlFixedIPs: [{'ip_address':'10.12.36.25'}]
+  #InternalApiVirtualFixedIPs: [{'ip_address':'192.168.10.25'}]
+  #RedisVirtualFixedIPs: [{'ip_address':'192.168.10.26'}]
+  #PublicVirtualFixedIPs: [{'ip_address':'10.12.136.25'}]
+  #StorageVirtualFixedIPs: [{'ip_address':'192.168.20.25'}]
+  #StorageMgmtVirtualFixedIPs: [{'ip_address':'192.168.30.25'}]
+
+  ExternalNetworkVlanID: 215
+  InternalApiNetworkVlanID: 20
+  StorageNetworkVlanID: 30
+  StorageMgmtNetworkVlanID: 40
+  TenantNetworkVlanID: 50
+
+  NeutronExternalNetworkBridge: "''"
+  BondInterfaceOvsOptions: "mode=active-backup miimon=150"
+  NeutronNetworkType: 'vxlan,vlan'
+  NeutronTunnelTypes: 'vxlan'
