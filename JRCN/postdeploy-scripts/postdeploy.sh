@@ -143,21 +143,21 @@ openstack subnet create internet26-subnet --network internet26 --dhcp --allocati
 #openstack network create baremetal67 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 67 --share
 #openstack subnet create baremetal67-subnet --network baremetal67 --dhcp --allocation-pool start=192.168.67.20,end=192.168.67.254 --dns-nameserver 192.168.0.254 --gateway 192.168.67.1 --subnet-range 192.168.67.0/24 --ip-version 4
 openstack network create edge-ctrl201 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 201 --share
-openstack subnet create edge-ctrl201-subnet --network edge-ctrl201 --dhcp --allocation-pool start=192.168.201.5,end=192.168.201.254 --dns-nameserver 192.168.0.254 --subnet-range 192.168.201.0/24
+openstack subnet create edge-ctrl201-subnet --network edge-ctrl201 --dhcp --allocation-pool start=192.168.201.5,end=192.168.201.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.201.0/24 --gateway none
 openstack network create edge-data202 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 202 --share
-openstack subnet create edge-data202-subnet --network edge-data202 --dhcp --allocation-pool start=192.168.202.5,end=192.168.202.254 --dns-nameserver 192.168.0.254 --subnet-range 192.168.202.0/24
+openstack subnet create edge-data202-subnet --network edge-data202 --dhcp --allocation-pool start=192.168.202.5,end=192.168.202.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.202.0/24 --gateway none
 openstack network create epc-ctrl203 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 203 --share
-openstack subnet create epc-ctrl203-subnet --network epc-ctrl203 --dhcp --allocation-pool start=192.168.203.5,end=192.168.203.254 --dns-nameserver 192.168.0.254 --subnet-range 192.168.203.0/24
+openstack subnet create epc-ctrl203-subnet --network epc-ctrl203 --dhcp --allocation-pool start=192.168.203.5,end=192.168.203.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.203.0/24 --gateway none
 openstack network create epc-data204 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 204 --share
-openstack subnet create epc-data204-subnet --network epc-data204 --dhcp --allocation-pool start=192.168.204.5,end=192.168.204.254 --dns-nameserver 192.168.0.254 --subnet-range 192.168.204.0/24
+openstack subnet create epc-data204-subnet --network epc-data204 --dhcp --allocation-pool start=192.168.204.5,end=192.168.204.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.204.0/24 --gateway none
 openstack network create ims-ctrl205 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 205 --share
-openstack subnet create ims-ctrl205-subnet --network ims-ctrl205 --dhcp --allocation-pool start=192.168.205.5,end=192.168.205.254 --dns-nameserver 192.168.0.254 --subnet-range 192.168.205.0/24
+openstack subnet create ims-ctrl205-subnet --network ims-ctrl205 --dhcp --allocation-pool start=192.168.205.5,end=192.168.205.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.205.0/24 --gateway none
 openstack network create ims-data206 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 206 --share
-openstack subnet create ims-data206-subnet --network ims-data206 --dhcp --allocation-pool start=192.168.206.5,end=192.168.206.254 --dns-nameserver 192.168.0.254 --subnet-range 192.168.206.0/24
+openstack subnet create ims-data206-subnet --network ims-data206 --dhcp --allocation-pool start=192.168.206.5,end=192.168.206.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.206.0/24 --gateway none
 openstack network create gilan207 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 207 --share
-openstack subnet create gilan207-subnet --network gilan207 --dhcp --allocation-pool start=192.168.207.5,end=192.168.207.254 --dns-nameserver 192.168.0.254 --subnet-range 192.168.207.0/24
+openstack subnet create gilan207-subnet --network gilan207 --dhcp --allocation-pool start=192.168.207.5,end=192.168.207.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.207.0/24 --gateway none
 openstack network create oam208 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 208 --share
-openstack subnet create oam208-subnet --network oam208 --dhcp --allocation-pool start=192.168.208.5,end=192.168.208.254 --dns-nameserver 192.168.0.254 --subnet-range 192.168.208.0/24
+openstack subnet create oam208-subnet --network oam208 --dhcp --allocation-pool start=192.168.208.5,end=192.168.208.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.208.0/24 --gateway none
 
 # Ironic in the overcloud baremetal router creation
 #openstack router create baremetal67-router
