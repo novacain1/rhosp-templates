@@ -20,9 +20,6 @@ time openstack overcloud deploy --templates \
   -e ~/templates/network-environment.yaml \
   -e ~/templates/overcloud_images.yaml \
   -t 120 \
-  --compute-flavor compute \
-  --control-flavor control \
-  --ceph-storage-flavor ceph-storage \
   --stack $STACKNAME
 }
 
