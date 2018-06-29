@@ -1,9 +1,10 @@
 parameter_defaults:
 
 #### GENERIC ENVIRONMENT OVERRIDES ####
+  CephStorageCount: 1
   CloudName: sesame.raleigh.redhat.com
   CloudDomain: raleigh.redhat.com
-  ComputeCount: 1
+  ComputeCount: 2
   #ComputeSchedulerHints:
   #  'capabilities:node': 'compute-%index'
   ControllerCount: 1
@@ -27,4 +28,7 @@ parameter_defaults:
   #MysqlMaxConnections: 8192
   #NovaComputeLibvirtType: 'kvm'
   NtpServer: ['clock1.rdu2.redhat.com','clock1.util.phx2.redhat.com','clock2.util.phx2.redhat.com']
+  OvercloudCephStorageFlavor: ceph-storage
+  OvercloudComputeFlavor: compute
+  OvercloudControllerFlavor: control
   TimeZone: 'America/New_York'
