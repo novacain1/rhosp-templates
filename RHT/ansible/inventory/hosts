@@ -1,0 +1,12 @@
+#!/bin/bash
+# Unset some things in case someone has a V3 environment loaded
+unset OS_IDENTITY_API_VERSION
+unset OS_PROJECT_ID
+unset OS_PROJECT_NAME
+unset OS_USER_DOMAIN_NAME
+unset OS_IDENTITY_API_VERSION
+source ~/stackrc
+DEFPLAN=overcloud
+PLAN_NAME=$(openstack stack list -f csv -c 'Stack Name' | tail -n 1 | sed -e 's/"//g')
+export TRIPLEO_PLAN_NAME=${PLAN_NAME:-$DEFPLAN}
+/usr/bin/tripleo-ansible-inventory $*
