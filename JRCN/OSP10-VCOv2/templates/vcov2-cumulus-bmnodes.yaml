@@ -1,0 +1,14 @@
+nodes:
+    - name: server-1-5
+      driver: pxe_ipmitool
+      driver_info:
+        ipmi_address: 192.168.0.135
+        ipmi_username: admin
+        ipmi_password: admin
+      properties:
+        cpus: 16
+        cpu_arch: x86_64
+        memory_mb: 73728
+        local_gb: 930
+      ports:
+        - address: "90:E2:BA:6D:B5:4C"

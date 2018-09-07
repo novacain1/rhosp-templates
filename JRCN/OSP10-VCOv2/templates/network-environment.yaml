@@ -1,0 +1,136 @@
+# This template configures each role to use Vlans on a single nic for
+# each isolated network. Avoids usage of network-isolation.yaml.
+#
+resource_registry:
+  OS::TripleO::Compute::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
+  OS::TripleO::Controller::Net::SoftwareConfig: /home/stack/templates/nic-configs/controller.yaml
+  OS::TripleO::CephStorage::Net::SoftwareConfig: /home/stack/templates/nic-configs/ceph-storage.yaml
+  OS::TripleO::Generic1100::Net::SoftwareConfig: /home/stack/templates/nic-configs/compute.yaml
+  #OS::TripleO::Services::ComputeNeutronOvsAgent: /usr/share/openstack-tripleo-heat-templates/puppet/services/neutron-ovs-dpdk-agent.yaml
+  #OS::TripleO::NodeUserData: /home/stack/templates/first-boot.yaml
+  #OS::TripleO::NodeExtraConfigPost: /home/stack/templates/post-install.yaml
+
+# Network definitions  
+  OS::TripleO::Network::External: /usr/share/openstack-tripleo-heat-templates/network/external.yaml
+  OS::TripleO::Network::InternalApi: /usr/share/openstack-tripleo-heat-templates/network/internal_api.yaml
+  OS::TripleO::Network::StorageMgmt: /usr/share/openstack-tripleo-heat-templates/network/storage_mgmt.yaml
+  OS::TripleO::Network::Storage: /usr/share/openstack-tripleo-heat-templates/network/storage.yaml
+  OS::TripleO::Network::Tenant: /usr/share/openstack-tripleo-heat-templates/network/tenant.yaml
+
+# Port assignments for the VIPs
+  OS::TripleO::Network::Ports::ExternalVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::Network::Ports::InternalApiVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+  OS::TripleO::Network::Ports::StorageVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::Network::Ports::StorageMgmtVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt.yaml
+  OS::TripleO::Network::Ports::RedisVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/vip.yaml
+
+# Port assignments for service virtual IPs for the controller role
+  OS::TripleO::Controller::Ports::RedisVipPort: /usr/share/openstack-tripleo-heat-templates/network/ports/vip.yaml
+# Port assignments for the controller role
+  OS::TripleO::Controller::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::Controller::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+  OS::TripleO::Controller::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::Controller::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt.yaml
+  OS::TripleO::Controller::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant.yaml
+
+# Port assignments for the Compute role
+  OS::TripleO::Compute::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::Compute::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+  OS::TripleO::Compute::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::Compute::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+  OS::TripleO::Compute::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant.yaml
+
+# Port assignments for the Ceph storage role
+  OS::TripleO::CephStorage::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::CephStorage::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+  OS::TripleO::CephStorage::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::CephStorage::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage_mgmt.yaml
+  OS::TripleO::CephStorage::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+
+# Port assignments for the Generic1100 role
+  OS::TripleO::Generic1100::Ports::ExternalPort: /usr/share/openstack-tripleo-heat-templates/network/ports/external.yaml
+  OS::TripleO::Generic1100::Ports::InternalApiPort: /usr/share/openstack-tripleo-heat-templates/network/ports/internal_api.yaml
+  OS::TripleO::Generic1100::Ports::StoragePort: /usr/share/openstack-tripleo-heat-templates/network/ports/storage.yaml
+  OS::TripleO::Generic1100::Ports::StorageMgmtPort: /usr/share/openstack-tripleo-heat-templates/network/ports/noop.yaml
+  OS::TripleO::Generic1100::Ports::TenantPort: /usr/share/openstack-tripleo-heat-templates/network/ports/tenant.yaml
+
+parameter_defaults:
+  InternalApiNetCidr: 192.168.120.0/24
+  TenantNetCidr: 192.168.150.0/24
+  StorageNetCidr: 192.168.130.0/24
+  StorageMgmtNetCidr: 192.168.140.0/24
+  #ManagementNetCidr: 172.20.0.0/24
+  ExternalNetCidr: 172.21.25.0/24
+  InternalApiAllocationPools: [{'start': '192.168.120.10', 'end': '192.168.120.120'}]
+  TenantAllocationPools: [{'start': '192.168.150.10', 'end': '192.168.150.120'}]
+  StorageAllocationPools: [{'start': '192.168.130.10', 'end': '192.168.130.120'}]
+  StorageMgmtAllocationPools: [{'start': '192.168.140.10', 'end': '192.168.140.120'}]
+  #ManagementAllocationPools: [{'start': '172.20.0.10', 'end': '172.20.0.200'}]
+  # Leave room for floating IPs in the External allocation pool
+  ExternalAllocationPools: [{'start': '172.21.25.150', 'end': '172.21.25.170'}]
+  # Set to the router gateway on the external network
+  ExternalInterfaceDefaultRoute: 172.21.25.1
+  # Gateway router for the provisioning network (or Undercloud IP)
+  ControlPlaneDefaultRoute: 192.168.66.18
+  # The IP address of the EC2 metadata server. Generally the IP of the Undercloud
+  EC2MetadataIp: 192.168.66.18
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers: ["192.168.0.254","8.8.8.8"]
+  InternalApiNetworkVlanID: 120
+  StorageNetworkVlanID: 130
+  StorageMgmtNetworkVlanID: 140
+  TenantNetworkVlanID: 150
+  #ManagementNetworkVlanID: 205
+  ExternalNetworkVlanID: 25
+  # May set to br-ex if using floating IPs only on native VLAN on bridge br-ex
+  NeutronExternalNetworkBridge: "''"
+  # Customize bonding options if required
+  #BondInterfaceOvsOptions: "mode=802.3ad miimon=100"
+  
+  # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
+  #NeutronTunnelTypes: 'vxlan'
+  # The tenant network type for Neutron (vlan or vxlan).
+  #NeutronNetworkType: 'vxlan'
+  # The OVS logical->physical bridge mappings to use.
+  #NeutronBridgeMappings: 'datacentre:br-ex'
+  #NeutronBridgeMappings: 'datacentre:br-ex,dpdk:br-link'
+  # The Neutron ML2 and OpenVSwitch vlan mapping range to support.
+  #NeutronNetworkVLANRanges: 'datacentre:25:66'
+
+
+  ########################
+  # OVS DPDK configuration
+  ########################
+  ## NeutronDpdkCoreList and NeutronDpdkMemoryChannels are REQUIRED settings.
+  ## Attempting to deploy DPDK without appropriate values will cause deployment to fail or lead to unstable deployments.
+  # List of cores to be used for DPDK Poll Mode Driver
+  #NeutronDpdkCoreList: "'1,41,21,61,2,42,22,62,3,43,23,63,4,44,24,64'"
+  # Number of memory channels to be used for DPDK
+  #NeutronDpdkMemoryChannels: "6"
+  # NeutronDpdkSocketMemory
+  #NeutronDpdkSocketMemory: "2048,2048"
+  # NeutronDpdkDriverType
+  #NeutronDpdkDriverType: "vfio-pci"
+  # Datapath type for ovs bridges
+  #NeutronDatapathType: "netdev"
+  # The vhost-user socket directory for OVS
+  #NeutronVhostuserSocketDir: "/var/run/openvswitch"
+
+  ########################
+  # Additional settings
+  ########################
+  # Reserved RAM for host processes
+  #NovaReservedHostMemory: 4096
+  # A list or range of physical CPU cores to reserve for virtual machine processes.
+  # Example: NovaVcpuPinSet: ['4-12','^8'] will reserve cores from 4-12 excluding 8
+  #NovaVcpuPinSet: "5-19,25-39,45-59,65-79"
+  # An array of filters used by Nova to filter a node.These filters will be applied in the order they are listed,
+  # so place your most restrictive filters first to make the filtering process more efficient.
+  #NovaSchedulerDefaultFilters: "RamFilter,ComputeFilter,AvailabilityZoneFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,PciPassthroughFilter,NUMATopologyFilter,AggregateInstanceExtraSpecsFilter"
+  # Kernel arguments for Compute node
+  #ComputeKernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=32 iommu=pt intel_iommu=on"
+  # A list or range of physical CPU cores to be tuned.
+  # The given args will be appended to the tuned cpu-partitioning profile.
+  #HostIsolatedCoreList: "1-19,21-39,41-59,61-79"
+  # List of logical cores to be used by ovs-dpdk processess (dpdk-lcore-mask)
+  #HostCpusList: "'0,40,20,60'"
