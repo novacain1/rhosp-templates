@@ -11,6 +11,7 @@ openstack overcloud container image prepare \
   --prefix=openstack- \
   --tag-from-label {version}-{release} \
   -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/neutron-opendaylight.yaml \
   -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
   --set ceph_namespace=registry.access.redhat.com/rhceph \
   --set ceph_image=rhceph-3-rhel7 \
@@ -24,6 +25,6 @@ sudo openstack overcloud container image upload \
 curl http://192.168.67.11:8787/v2/_catalog | jq .
 
 #update certificates
-sudo cp overcloud-cacert.pem /etc/pki/ca-trust/source/anchors/
-sudo update-ca-trust extract
+#sudo cp overcloud-cacert.pem /etc/pki/ca-trust/source/anchors/
+#sudo update-ca-trust extract
 

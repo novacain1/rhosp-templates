@@ -9,6 +9,8 @@ parameter_defaults:
     rht-controller-2: rht-controller03
     rht-compute-0: rht-compute01
     rht-compute-1: rht-compute02
+    rht-compute-2: rht-compute03
+    rht-compute-3: rht-compute04
     rht-cephstorage-0: rht-ceph01
     rht-cephstorage-1: rht-ceph02
     rht-cephstorage-2: rht-ceph03
