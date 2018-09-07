@@ -58,12 +58,13 @@ function ocpost {
 echo "Creating Overcloud postdeployment validation/verification"
 source ~/vco2rc
 
-#upload fedora 27 cloud image
-echo "Uploading fedora 27 and rhel7 cloud images to image store"
+#upload fedora 28 cloud image
+echo "Uploading fedora 28 and rhel7 cloud images to image store"
 cd $HOME/postdeploy-scripts/
-curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/27/CloudImages/x86_64/images/Fedora-Cloud-Base-27-1.6.x86_64.qcow2 > fedora27.qcow2
-qemu-img convert fedora27.qcow2 fedora27.raw
-openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/fedora27.raw  --public fedora27
+#curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/27/CloudImages/x86_64/images/Fedora-Cloud-Base-27-1.6.x86_64.qcow2 > fedora27.qcow2
+curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/28/Cloud/x86_64/images/Fedora-Cloud-Base-28-1.1.x86_64.qcow2 > fedora28.qcow2
+qemu-img convert fedora28.qcow2 fedora28.raw
+openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/fedora28.raw  --public fedora28
 openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/rhel7.raw  --public rhel7
 #openstack image create --disk-format qcow2 --container-format bare --file $HOME/postdeploy-scripts/rhel-guest-image-7.4-263.x86_64.qcow2 --public rhel7
 
