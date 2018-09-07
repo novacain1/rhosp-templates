@@ -1,0 +1,21 @@
+[controllers]
+rht-controller01 ansible_host=10.12.49.50 ansible_ssh_user=heat-admin host_key_checking=False
+rht-controller02 ansible_host=10.12.49.51 ansible_ssh_user=heat-admin host_key_checking=False
+rht-controller03 ansible_host=10.12.49.52 ansible_ssh_user=heat-admin host_key_checking=False
+
+[computes]
+rht-compute01 ansible_host=172.21.25.146 ansible_ssh_user=heat-admin host_key_checking=False
+rht-compute02 ansible_host=172.21.25.146 ansible_ssh_user=heat-admin host_key_checking=False
+rht-compute03 ansible_host=172.21.25.146 ansible_ssh_user=heat-admin host_key_checking=False
+rht-compute04 ansible_host=172.21.25.146 ansible_ssh_user=heat-admin host_key_checking=False
+
+[storages]
+rht-ceph01 ansible_host=172.21.25.140 ansible_ssh_user=heat-admin host_key_checking=False
+rht-ceph02 ansible_host=172.21.25.140 ansible_ssh_user=heat-admin host_key_checking=False
+rht-ceph03 ansible_host=172.21.25.140 ansible_ssh_user=heat-admin host_key_checking=False
+
+[vms]
+#172.21.26.8 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
+#172.21.26.13 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
+#172.21.26.12 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
+#172.21.26.15 ansible_ssh_user=cloud-user ansible_ssh_private_key_file=/home/stack/dcain.pem
