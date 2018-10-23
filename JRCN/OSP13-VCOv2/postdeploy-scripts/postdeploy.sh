@@ -82,6 +82,12 @@ neutron quota-update --tenant_id $tenant --port 100000 --floatingip 200
 #openstack flavor create --public baremetal --id auto --ram 1024 --disk 20 --vcpus 1 --property baremetal=true --public
 openstack flavor create --public m1.small --id auto --ram 1024 --disk 10 --vcpus 1 --public
 openstack flavor create --public m1.medium --id auto --ram 4096 --disk 20 --vcpus 2 --public
+openstack flavor create --public f5-gi-lan --id auto --ram 16384 --disk 250 --vcpus 4 --public
+openstack flavor create --public f5-session-dir --id auto --ram 8192 --disk 142 --vcpus 4 --public
+openstack flavor create --public ng1-normal --id auto --ram 32768 --disk 1100 --vcpus 8 --public
+openstack flavor create --public vstream-normal --id auto --ram 32768 --disk 500 --vcpus 8 --public
+openstack flavor create --public quortus-medium --id auto --ram 4096 --disk 40 --vcpus 2 --public
+openstack flavor create --public quortus-small --id auto --ram 2048 --disk 40 --vcpus 1 --public
 #openstack flavor create --id auto --ram 1024 --disk 10 --vcpus 2 dpdk-flavor.s1 --public
 #openstack flavor set \
 #  --property hw:mem_page_size=large \
@@ -107,9 +113,7 @@ admin_project_id=$(openstack project list | grep admin | awk '{print $2}')
 admin_sec_group_id=$(openstack security group list | grep $admin_project_id | awk '{print $2}')
 
 openstack security group rule create $admin_sec_group_id --protocol icmp --ingress
-openstack security group rule create $admin_sec_group_id --protocol icmp --egress
 openstack security group rule create $admin_sec_group_id --protocol tcp --dst-port 22 --ingress
-openstack security group rule create $admin_sec_group_id --protocol tcp --dst-port 22 --egress
 
 #security groups exception as redhat user
 source ~/redhatrc
@@ -157,6 +161,8 @@ openstack network create gilan207 --provider-physical-network datacentre --provi
 openstack subnet create gilan207-subnet --network gilan207 --dhcp --allocation-pool start=192.168.207.5,end=192.168.207.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.207.0/24 --gateway none
 openstack network create oam208 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 208 --share
 openstack subnet create oam208-subnet --network oam208 --dhcp --allocation-pool start=192.168.208.5,end=192.168.208.240 --dns-nameserver 192.168.0.254 --subnet-range 192.168.208.0/24 --gateway 192.168.208.1
+openstack network create corporate --share
+openstack subnet create corporate-subnet --network corporate --dhcp --allocation-pool start=172.255.2.5,end=172.255.2.254 --dns-nameserver 192.168.0.254 --subnet-range 172.255.2.0/24 --gateway none
 
 # OAM208 Tenant Network as admin user
 openstack router create oam208-router
