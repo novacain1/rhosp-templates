@@ -1,20 +1,25 @@
 parameter_defaults:
-  CephStorageSchedulerHints: {'capabilities:node': 'cephstorage-%index%'}
-  ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
+  #CephStorageSchedulerHints: {'capabilities:node': 'cephstorage-%index%'}
+  #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
+  ComputeHCISchedulerHints: {'capabilities:node': 'computehci-%index%'}
   ControllerSchedulerHints: {'capabilities:node': 'controller-%index%'}
 
   HostnameMap:
     rht-controller-0: rht-controller01
     rht-controller-1: rht-controller02
     rht-controller-2: rht-controller03
-    rht-compute-0: rht-compute01
-    rht-compute-1: rht-compute02
-    rht-compute-2: rht-compute03
-    rht-compute-3: rht-compute04
-    rht-cephstorage-0: rht-ceph01
-    rht-cephstorage-1: rht-ceph02
-    rht-cephstorage-2: rht-ceph03
+    #rht-compute-0: rht-compute01
+    #rht-compute-1: rht-compute02
+    #rht-compute-2: rht-compute03
+    #rht-compute-3: rht-compute04
+    rht-computehci-0: rht-computehci01
+    rht-computehci-1: rht-computehci02
+    rht-computehci-2: rht-computehci03
+    #rht-cephstorage-0: rht-ceph01
+    #rht-cephstorage-1: rht-ceph02
+    #rht-cephstorage-2: rht-ceph03
 
-  OvercloudCephStorageFlavor: baremetal
-  OvercloudComputeFlavor: baremetal
-  OvercloudControllerFlavor: baremetal
+  #OvercloudCephStorageFlavor: baremetal
+  #OvercloudComputeFlavor: baremetal
+  OvercloudComputeHCIFlavor: ceph-storage
+  #OvercloudControllerFlavor: baremetal

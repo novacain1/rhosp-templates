@@ -1,10 +1,11 @@
 parameter_defaults:
 
 #### GENERIC ENVIRONMENT OVERRIDES ####
-  CephStorageCount: 3
+  CephStorageCount: 0
   CloudName: sesame.raleigh.redhat.com
   CloudDomain: raleigh.redhat.com
-  ComputeCount: 4
+  ComputeCount: 0
+  ComputeHCICount: 3
   ControllerCount: 3
   ControllerExtraConfig:
     #ceilometer::collector::collector_workers: 3

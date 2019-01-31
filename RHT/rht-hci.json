@@ -1,42 +1,6 @@
 {
   "nodes": [
     {
-      "name": "b200-01",
-      "pm_addr": "10.12.49.239",
-      "pm_password": "Redhat!23",
-      "pm_type": "pxe_ipmitool",
-      "pm_user": "admin",
-      "mac": [ "00:25:b5:02:00:0e" ],
-      "capabilities": "node:compute-3,boot_option:local"
-    },
-    {
-      "name": "b200-02",
-      "pm_addr": "10.12.49.245",
-      "pm_password": "Redhat!23",
-      "pm_type": "pxe_ipmitool",
-      "pm_user": "admin",
-      "mac": [ "00:25:b5:02:00:2e" ],
-      "capabilities": "node:compute-2,boot_option:local"
-    },
-    {
-      "name": "b200-03",
-      "pm_addr": "10.12.49.244",
-      "pm_password": "Redhat!23",
-      "pm_type": "pxe_ipmitool",
-      "pm_user": "admin",
-      "mac": [ "00:25:b5:02:00:1f" ],
-      "capabilities": "node:compute-1,boot_option:local"
-    },
-    {
-      "name": "b200-04",
-      "pm_addr": "10.12.49.242",
-      "pm_password": "Redhat!23",
-      "pm_type": "pxe_ipmitool",
-      "pm_user": "admin",
-      "mac": [ "00:25:b5:02:00:0f" ],
-      "capabilities": "node:compute-0,boot_option:local"
-    },
-    {
       "name": "b200-05",
       "pm_addr": "10.12.49.240",
       "pm_password": "Redhat!23",
@@ -70,7 +34,7 @@
       "pm_type": "pxe_ipmitool",
       "pm_user": "admin",
       "mac": [ "00:25:b5:02:00:0c" ],
-      "capabilities": "node:cephstorage-0,boot_option:local"
+      "capabilities": "node:computehci-0,boot_option:local"
     },
     {
       "name": "c240-03",
@@ -79,7 +43,7 @@
       "pm_type": "pxe_ipmitool",
       "pm_user": "admin",
       "mac": [ "00:25:b5:02:00:2c" ],
-      "capabilities": "node:cephstorage-1,boot_option:local"
+      "capabilities": "node:computehci-1,boot_option:local"
     },
     {
       "name": "c240-04",
@@ -88,7 +52,7 @@
       "pm_type": "pxe_ipmitool",
       "pm_user": "admin",
       "mac": [ "00:25:b5:02:00:1d" ],
-      "capabilities": "node:cephstorage-2,boot_option:local"
+      "capabilities": "node:computehci-2,boot_option:local"
     }
   ]
 }

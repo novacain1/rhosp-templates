@@ -58,13 +58,14 @@ function ocpost {
 echo "Creating Overcloud postdeployment validation/verification"
 source ~/rhtrc
 
-#upload fedora 28 cloud image
-echo "Uploading fedora 28 and rhel7 cloud images to image store"
+#upload fedora 29 cloud image
+echo "Uploading fedora 29 and rhel7 cloud images to image store"
 cd $HOME/postdeploy-scripts/
-curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/28/Cloud/x86_64/images/Fedora-Cloud-Base-28-1.1.x86_64.qcow2 > fedora28.qcow2
-qemu-img convert fedora28.qcow2 fedora28.raw
-openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/fedora28.raw  --public fedora28
-#openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/rhel7.raw  --public rhel7
+curl -L https://download.fedoraproject.org/pub/fedora/linux/releases/29/Cloud/x86_64/images/Fedora-Cloud-Base-29-1.2.x86_64.qcow2 > fedora29.qcow2
+qemu-img convert fedora29.qcow2 fedora29.raw
+qemu-img convert rhel7.qcow2 rhel7.raw
+openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/fedora29.raw  --public fedora29
+openstack image create --disk-format raw --container-format bare --file $HOME/postdeploy-scripts/rhel7.raw  --public rhel7
 #openstack image create --disk-format qcow2 --container-format bare --file $HOME/postdeploy-scripts/rhel-guest-image-7.4-263.x86_64.qcow2 --public rhel7
 
 #create new project/user/tenant
@@ -80,8 +81,11 @@ tenant=$(openstack project list | awk '/redhat/ {print $2}')
 #neutron quota-update --tenant_id $tenant --port 100000 --floatingip 200
 
 #create custom flavors
-openstack flavor create --public m1.tiny --id auto --ram 512 --disk 5 --public
-openstack flavor create --public m1.small --id auto --ram 1024 --disk 10 --public
+openstack flavor create --public m1.tiny --id auto --ram 512 --disk 5 --vcpus 1 --public
+openstack flavor create --public m1.small --id auto --ram 1024 --disk 10 --vcpus 1 --public
+openstack flavor create --public m1.medium --id auto --ram 4096 --disk 20 --vcpus 1 --public
+openstack flavor create --public m1.ocpmaster --id auto --ram 16384 --disk 45 --vcpus 4 --public
+openstack flavor create --public m1.ocpnode --id auto --ram 8192 --disk 20 --vcpus 1 --public
 
 #security groups inbound exception as admin user
 admin_project_id=$(openstack project list | grep admin | awk '{print $2}')
@@ -109,10 +113,12 @@ subnet_id=$(neutron subnet-list | awk ' /172.255.1./ {print $2 } ')
 openstack router add subnet tenant1-router $subnet_id
 
 #provider networks as admin user for non-DPDK setup
-#vlans 100
+#vlans 100-101
 source ~/rhtrc
-openstack network create provider100 --provider-physical-network provider --provider-network-type vlan --provider-segment 100 --share
-openstack subnet create provider100-subnet --network provider100 --dhcp --allocation-pool start=192.168.100.5,end=192.168.100.254 --dns-nameserver 10.12.49.8 --gateway 192.168.100.1 --subnet-range 192.168.100.0/23
+openstack network create provider100 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 100 --share
+openstack subnet create provider100-subnet --network provider100 --dhcp --allocation-pool start=192.168.100.5,end=192.168.100.199 --dns-nameserver 10.12.49.8 --gateway 192.168.100.1 --subnet-range 192.168.100.0/24
+openstack network create provider101 --provider-physical-network datacentre --provider-network-type vlan --provider-segment 101 --share
+openstack subnet create provider101-subnet --network provider101 --dhcp --allocation-pool start=192.168.101.5,end=192.168.101.254 --dns-nameserver 10.12.49.8 --gateway 192.168.101.1 --subnet-range 192.168.101.0/24
 
 # Floating IP network as admin user
 openstack network create floating --external --provider-network-type flat --provider-physical-network datacentre
@@ -122,12 +128,63 @@ ext_net_id=$(openstack network list | awk ' /floating/ { print $2 } ')
 #openstack router set $route_id --external-gateway $ext_net_id
 neutron router-gateway-set $route_id $ext_net_id
 
-# Floating IP allocate 15
-source ~/redhatovercloudrc
-for i in {1..3}
+# Baremetal network for BM nodes
+openstack network create baremetal --provider-physical-network datacentre --provider-network-type vlan --provider-segment 68 --share
+openstack subnet create baremetal-subnet --network baremetal --dhcp --allocation-pool start=192.168.68.50,end=192.168.68.79 --dns-nameserver 10.12.49.8 --gateway 192.168.68.1 --subnet-range 192.168.68.0/25
+
+# Floating IP allocate 2
+source ~/redhatrc
+for i in {1..2}
 do
     openstack floating ip create floating
 done
+}
+
+function ocbare {
+
+echo "Creating Overcloud postdeployment baremetal configuration"
+source ~/rhtrc
+openstack baremetal create ~/templates/baremetal.yaml
+openstack baremetal node list
+
+# upload ramdisk and kernel images to image store
+# 21-Dec removed public from image to avoid seeing in glance
+openstack image create --container-format aki --disk-format aki --file ~/images/ironic-python-agent.kernel deploy-kernel
+openstack image create --container-format ari --disk-format ari --file ~/images/ironic-python-agent.initramfs deploy-ramdisk
+
+# set baremetal servers to use deploy kernel/ramdisk
+DEPLOY_KERNEL=$(openstack image show deploy-kernel -f value -c id)
+DEPLOY_RAMDISK=$(openstack image show deploy-ramdisk -f value -c id)
+openstack baremetal node set baremetal1 --driver-info deploy_kernel=$DEPLOY_KERNEL --driver-info deploy_ramdisk=$DEPLOY_RAMDISK
+openstack baremetal node set baremetal2 --driver-info deploy_kernel=$DEPLOY_KERNEL --driver-info deploy_ramdisk=$DEPLOY_RAMDISK
+openstack baremetal node set baremetal3 --driver-info deploy_kernel=$DEPLOY_KERNEL --driver-info deploy_ramdisk=$DEPLOY_RAMDISK
+openstack baremetal node set baremetal4 --driver-info deploy_kernel=$DEPLOY_KERNEL --driver-info deploy_ramdisk=$DEPLOY_RAMDISK
+
+# start cleaning, wipe disk
+openstack baremetal node manage baremetal1
+openstack baremetal node provide baremetal1
+
+echo "Uploading RHEL7 images to Image Storage for overcloud"
+KERNEL_ID=$(openstack image create --file ~/images/overcloud-full.vmlinuz --public --container-format aki --disk-format aki -f value -c id overcloud-full.vmlinuz)
+RAMDISK_ID=$(openstack image create --file ~/images/overcloud-full.initrd --public --container-format ari --disk-format ari -f value -c id overcloud-full.initrd)
+openstack image create --file ~/images/overcloud-full.qcow2 --public --container-format bare --disk-format qcow2 --property kernel_id=$KERNEL_ID --property ramdisk_id=$RAMDISK_ID rhel7-baremetal
+
+openstack flavor create --ram 1024 --disk 40 --vcpus 1 baremetal
+openstack flavor set baremetal --property resources:CUSTOM_BAREMETAL=1
+openstack flavor set baremetal --property resources:VCPU=0
+openstack flavor set baremetal --property resources:MEMORY_MB=0
+openstack flavor set baremetal --property resources:DISK_GB=0
+
+echo "Creating aggregate that covers OpenStack Controller systems"
+openstack aggregate create --property baremetal=true baremetal-hosts
+openstack host list
+openstack aggregate add host baremetal-hosts rht-controller01.raleigh.redhat.com
+openstack aggregate add host baremetal-hosts rht-controller02.raleigh.redhat.com
+openstack aggregate add host baremetal-hosts rht-controller03.raleigh.redhat.com
+
+echo "Utilizing keypair created earlier for convenience"
+openstack keypair create --private-key ~/dcain.pem ironicOC
+
 }
 
 if [ $1 = "lldp" ]; then
@@ -140,6 +197,10 @@ fi
 
 if [ $1 = "ocpost" ]; then
     ocpost
+fi
+
+if [ $1 = "ocbare" ]; then
+    ocbare
 fi
 
 exit 0
