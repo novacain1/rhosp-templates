@@ -6,8 +6,8 @@ openshift_deployment_type: openshift-enterprise
 openshift_release: v3.11
 oreg_url: registry.redhat.io/openshift3/ose-${component}:${version}
 openshift_examples_modify_imagestreams: true
-oreg_auth_user: dcain@redhat.com
-oreg_auth_password: c1gMvPUyNd7wDVzeeu5P
+oreg_auth_user: username
+oreg_auth_password: password
 
 # Default domain to access the applications running on OpenShift.
 # This uses the `openshift_openstack_clusterid`
