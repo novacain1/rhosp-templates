@@ -1,89 +1,107 @@
 container_images:
-- imagename: registry.access.redhat.com/rhosp13/openstack-aodh-api:13.0-55
+- imagename: registry.access.redhat.com/rhosp13/openstack-aodh-api:13.0-62.1543534121
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-aodh-evaluator:13.0-55
+- imagename: registry.access.redhat.com/rhosp13/openstack-aodh-evaluator:13.0-62.1543534127
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-aodh-listener:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-aodh-listener:13.0-61.1543534105
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-aodh-notifier:13.0-55
+- imagename: registry.access.redhat.com/rhosp13/openstack-aodh-notifier:13.0-62.1543534128
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-ceilometer-central:13.0-52
+- imagename: registry.access.redhat.com/rhosp13/openstack-ceilometer-central:13.0-59.1543534112
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-ceilometer-compute:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-ceilometer-compute:13.0-61.1543534134
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-ceilometer-notification:13.0-53
+- imagename: registry.access.redhat.com/rhosp13/openstack-ceilometer-notification:13.0-61.1543534109
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-cinder-api:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-cinder-api:13.0-63.1543534127
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-cinder-scheduler:13.0-56
+- imagename: registry.access.redhat.com/rhosp13/openstack-cinder-scheduler:13.0-65.1543534135
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-cinder-volume:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-cinder-volume:13.0-63.1543534127
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-cron:13.0-59
+- imagename: registry.access.redhat.com/rhosp13/openstack-cron:13.0-66.1543534082
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-glance-api:13.0-56
+- imagename: registry.access.redhat.com/rhosp13/openstack-glance-api:13.0-64.1543534114
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-gnocchi-api:13.0-53
+- imagename: registry.access.redhat.com/rhosp13/openstack-gnocchi-api:13.0-61.1543534135
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-gnocchi-metricd:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-gnocchi-metricd:13.0-62.1543534116
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-gnocchi-statsd:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-gnocchi-statsd:13.0-62.1543534137
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-haproxy:13.0-55
+- imagename: registry.access.redhat.com/rhosp13/openstack-haproxy:13.0-62.1543534080
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-heat-api-cfn:13.0-53
+- imagename: registry.access.redhat.com/rhosp13/openstack-heat-api-cfn:13.0-60.1543534138
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-heat-api:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-heat-api:13.0-61.1543534111
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-heat-engine:13.0-52
+- imagename: registry.access.redhat.com/rhosp13/openstack-heat-engine:13.0-59.1543534131
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-horizon:13.0-53
+- imagename: registry.access.redhat.com/rhosp13/openstack-horizon:13.0-60.1543534103
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-iscsid:13.0-53
+- imagename: registry.access.redhat.com/rhosp13/openstack-ironic-api:13.0-61.1543534124
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-keystone:13.0-53
+- imagename: registry.access.redhat.com/rhosp13/openstack-ironic-conductor:13.0-61.1543534113
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-mariadb:13.0-55
+- imagename: registry.access.redhat.com/rhosp13/openstack-ironic-pxe:13.0-54.1543534110
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-memcached:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-iscsid:13.0-60.1543534061
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-neutron-dhcp-agent:13.0-58
+- imagename: registry.access.redhat.com/rhosp13/openstack-keystone:13.0-60.1543534107
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-neutron-metadata-agent:13.0-57
+- imagename: registry.access.redhat.com/rhosp13/openstack-mariadb:13.0-62.1543534066
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-neutron-server-opendaylight:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-memcached:13.0-61.1543534084
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-nova-api:13.0-58
+- imagename: registry.access.redhat.com/rhosp13/openstack-neutron-dhcp-agent:13.0-66.1543534114
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-nova-compute:13.0-60
+- imagename: registry.access.redhat.com/rhosp13/openstack-neutron-l3-agent:13.0-64.1543534114
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-nova-conductor:13.0-57
+- imagename: registry.access.redhat.com/rhosp13/openstack-neutron-metadata-agent:13.0-65.1543534133
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-nova-consoleauth:13.0-57
+- imagename: registry.access.redhat.com/rhosp13/openstack-neutron-openvswitch-agent:13.0-65.1543534110
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-nova-libvirt:13.0-62
+- imagename: registry.access.redhat.com/rhosp13/openstack-neutron-server:13.0-64.1543534105
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-nova-novncproxy:13.0-60
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-api:13.0-67.1543534106
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-nova-placement-api:13.0-58
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-compute-ironic:13.0-71
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-nova-scheduler:13.0-59
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-compute:13.0-72
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-opendaylight:13.0-57
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-conductor:13.0-66.1543534132
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-panko-api:13.0-55
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-consoleauth:13.0-66.1543534131
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-rabbitmq:13.0-55
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-libvirt:13.0-73
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-redis:13.0-57
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-novncproxy:13.0-69.1543534127
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-swift-account:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-placement-api:13.0-67.1543534124
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-swift-container:13.0-57
+- imagename: registry.access.redhat.com/rhosp13/openstack-nova-scheduler:13.0-67.1543534138
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-swift-object:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-octavia-api:13.0-58.1543534136
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhosp13/openstack-swift-proxy-server:13.0-54
+- imagename: registry.access.redhat.com/rhosp13/openstack-octavia-health-manager:13.0-60.1543534134
   push_destination: 192.168.67.11:8787
-- imagename: registry.access.redhat.com/rhceph/rhceph-3-rhel7:3-12
+- imagename: registry.access.redhat.com/rhosp13/openstack-octavia-housekeeping:13.0-60.1543534133
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhosp13/openstack-octavia-worker:13.0-59.1543534132
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhosp13/openstack-panko-api:13.0-62.1543534139
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhosp13/openstack-rabbitmq:13.0-63.1543534083
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhosp13/openstack-redis:13.0-64.1543534104
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhosp13/openstack-swift-account:13.0-61.1543534113
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhosp13/openstack-swift-container:13.0-64.1543534110
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhosp13/openstack-swift-object:13.0-61.1543534106
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhosp13/openstack-swift-proxy-server:13.0-61.1543534108
+  push_destination: 192.168.67.11:8787
+- imagename: registry.access.redhat.com/rhceph/rhceph-3-rhel7:3-18
   push_destination: 192.168.67.11:8787

@@ -18,14 +18,25 @@ undercloud"; exit 1)
 function deployRHOSP {
 time openstack overcloud deploy \
   --templates /usr/share/openstack-tripleo-heat-templates \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
+  -n /home/stack/templates/network_data.yaml \
+  -r /home/stack/templates/roles_data.yaml \
   -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/neutron-opendaylight.yaml \
+  -p /usr/share/openstack-tripleo-heat-templates/plan-samples/plan-environment-derived-params.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/ironic.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/octavia.yaml \
+  -e ~/environments/20-network-environment.yaml \
+  -e ~/environments/25-scheduler-hints-env.yaml \
+  -e ~/environments/30-ips-from-pool-all.yaml \
+  -e ~/environments/35-ceph-config.yaml \
+  -e ~/environments/40-ironic-baremetal.yaml \
+  -e ~/environments/50-public_vip.yaml \
+  -e ~/environments/99-rhosp-misc.yaml \
   -e ~/templates/overcloud_images.yaml \
-  --environment-directory ~/environments \
+  --log-file ~/deployment.log \
+  --stack $STACKNAME \
   --timeout 90 \
-  --verbose \
-  --stack $STACKNAME
+  --verbose
 }
 
 function updateUC1 {
@@ -53,27 +64,27 @@ echo "Done updating the undercloud."
 
 function updateOC {
 openstack overcloud update prepare --templates \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
   -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/neutron-opendaylight.yaml \
+  -p /usr/share/openstack-tripleo-heat-templates/plan-samples/plan-environment-derived-params.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
   -e ~/templates/overcloud_images.yaml \
-  --environment-directory ~/environments
+  --environment-directory ~/environments \
+  --stack rht
 
-openstack overcloud update run --roles Controller
-openstack overcloud update run --roles Compute
-openstack overcloud update run --roles CephStorage
+openstack overcloud update run --nodes Controller --stack rht
+openstack overcloud update run --nodes ComputeHCI --stack rht
 
 openstack overcloud ceph-upgrade run --templates \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
   -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/neutron-opendaylight.yaml \
+  -p /usr/share/openstack-tripleo-heat-templates/plan-samples/plan-environment-derived-params.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
   -e ~/templates/overcloud_images.yaml \
   --environment-directory ~/environments
 
 time openstack overcloud update converge --templates \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
   -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/neutron-opendaylight.yaml \
+  -p /usr/share/openstack-tripleo-heat-templates/plan-samples/plan-environment-derived-params.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
   -e ~/templates/overcloud_images.yaml \
   --environment-directory ~/environments
 

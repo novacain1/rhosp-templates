@@ -11,11 +11,9 @@ openstack overcloud container image prepare \
   --prefix=openstack- \
   --tag-from-label {version}-{release} \
   -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/ironic.yaml \
-  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/octavia.yaml \
+  -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/neutron-opendaylight.yaml \
   --set ceph_namespace=registry.access.redhat.com/rhceph \
   --set ceph_image=rhceph-3-rhel7 \
-  --set ceph_tag=latest \
   --output-env-file=/home/stack/templates/overcloud_images.yaml \
   --output-images-file=/home/stack/templates/local_registry_images.yaml
 

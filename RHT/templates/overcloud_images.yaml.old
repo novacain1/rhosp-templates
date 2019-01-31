@@ -1,6 +1,6 @@
-# Generated with the following on 2019-01-13T20:00:27.888483
+# Generated with the following on 2019-01-07T21:31:13.795994
 #
-#   openstack overcloud container image prepare --namespace=registry.access.redhat.com/rhosp13 --push-destination=192.168.67.11:8787 --prefix=openstack- --tag-from-label {version}-{release} -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/ironic.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/octavia.yaml --set ceph_namespace=registry.access.redhat.com/rhceph --set ceph_image=rhceph-3-rhel7 --set ceph_tag=latest --output-env-file=/home/stack/templates/overcloud_images.yaml --output-images-file=/home/stack/templates/local_registry_images.yaml
+#   openstack overcloud container image prepare --namespace=registry.access.redhat.com/rhosp13 --push-destination=192.168.67.11:8787 --prefix=openstack- --tag-from-label {version}-{release} -e /usr/share/openstack-tripleo-heat-templates/environments/ceph-ansible/ceph-ansible.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/services-docker/octavia.yaml --set ceph_namespace=registry.access.redhat.com/rhceph --set ceph_image=rhceph-3-rhel7 --set ceph_tag=latest --output-env-file=/home/stack/templates/overcloud_images.yaml --output-images-file=/home/stack/templates/local_registry_images.yaml
 #
 
 parameter_defaults:
@@ -40,11 +40,6 @@ parameter_defaults:
   DockerHorizonImage: 192.168.67.11:8787/rhosp13/openstack-horizon:13.0-60.1543534103
   DockerInsecureRegistryAddress:
   - 192.168.67.11:8787
-  DockerIronicApiConfigImage: 192.168.67.11:8787/rhosp13/openstack-ironic-api:13.0-61.1543534124
-  DockerIronicApiImage: 192.168.67.11:8787/rhosp13/openstack-ironic-api:13.0-61.1543534124
-  DockerIronicConductorImage: 192.168.67.11:8787/rhosp13/openstack-ironic-conductor:13.0-61.1543534113
-  DockerIronicConfigImage: 192.168.67.11:8787/rhosp13/openstack-ironic-pxe:13.0-54.1543534110
-  DockerIronicPxeImage: 192.168.67.11:8787/rhosp13/openstack-ironic-pxe:13.0-54.1543534110
   DockerIscsidConfigImage: 192.168.67.11:8787/rhosp13/openstack-iscsid:13.0-60.1543534061
   DockerIscsidImage: 192.168.67.11:8787/rhosp13/openstack-iscsid:13.0-60.1543534061
   DockerKeystoneConfigImage: 192.168.67.11:8787/rhosp13/openstack-keystone:13.0-60.1543534107
@@ -61,7 +56,6 @@ parameter_defaults:
   DockerNeutronMetadataImage: 192.168.67.11:8787/rhosp13/openstack-neutron-metadata-agent:13.0-65.1543534133
   DockerNovaApiImage: 192.168.67.11:8787/rhosp13/openstack-nova-api:13.0-67.1543534106
   DockerNovaComputeImage: 192.168.67.11:8787/rhosp13/openstack-nova-compute:13.0-72
-  DockerNovaComputeIronicImage: 192.168.67.11:8787/rhosp13/openstack-nova-compute-ironic:13.0-71
   DockerNovaConductorImage: 192.168.67.11:8787/rhosp13/openstack-nova-conductor:13.0-66.1543534132
   DockerNovaConfigImage: 192.168.67.11:8787/rhosp13/openstack-nova-api:13.0-67.1543534106
   DockerNovaConsoleauthImage: 192.168.67.11:8787/rhosp13/openstack-nova-consoleauth:13.0-66.1543534131
