@@ -1,0 +1,26 @@
+---
+- name: Enable the proper repositories for OpenShift installation
+  hosts: OSEv3
+  become: yes
+  tasks:
+  - name: Register with activationkey and consume subscriptions matching Red Hat Cloud Suite or Red Hat OpenShift Container Platform
+    redhat_subscription:
+      state: present
+      activationkey: shiftstack
+      org_id: FILLMEIN
+      pool: '^(Red Hat Cloud Suite|Red Hat OpenShift Container Platform|Employee)$'
+
+  - name: Disable all current repositories
+    rhsm_repository:
+      name: '*'
+      state: disabled
+
+  - name: Enable Repositories
+    rhsm_repository:
+      name: "{{ item }}"
+      state: enabled
+    with_items:
+      - rhel-7-server-rpms
+      - rhel-7-server-extras-rpms
+      - rhel-7-server-ose-3.11-rpms
+      - rhel-7-server-ansible-2.5-rpms

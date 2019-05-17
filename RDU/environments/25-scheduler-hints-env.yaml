@@ -1,0 +1,25 @@
+parameter_defaults:
+  #CephStorageSchedulerHints: {'capabilities:node': 'cephstorage-%index%'}
+  #ComputeSchedulerHints: {'capabilities:node': 'compute-%index%'}
+  ComputeHCISchedulerHints: {'capabilities:node': 'computehci-%index%'}
+  ControllerSchedulerHints: {'capabilities:node': 'controller-%index%'}
+
+  HostnameMap:
+    rdu-controller-0: rdu-controller01
+    rdu-controller-1: rdu-controller02
+    rdu-controller-2: rdu-controller03
+    #rdu-compute-0: rdu-compute01
+    #rdu-compute-1: rdu-compute02
+    #rdu-compute-2: rdu-compute03
+    #rdu-compute-3: rdu-compute04
+    rdu-computehci-0: rdu-computehci01
+    rdu-computehci-1: rdu-computehci02
+    rdu-computehci-2: rdu-computehci03
+    #rdu-cephstorage-0: rdu-ceph01
+    #rdu-cephstorage-1: rdu-ceph02
+    #rdu-cephstorage-2: rdu-ceph03
+
+  #OvercloudCephStorageFlavor: baremetal
+  #OvercloudComputeFlavor: baremetal
+  #OvercloudComputeHCIFlavor: ceph-storage
+  #OvercloudControllerFlavor: baremetal
