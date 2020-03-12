@@ -1,8 +1,0 @@
----
-- name: Disable and unsubscribe target systems
-  hosts: OSEv3
-  become: yes
-  tasks:
-  - name: Unregister and remove systems from Red Hat registration
-    redhat_subscription:
-      state: absent

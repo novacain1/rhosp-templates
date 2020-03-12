@@ -1,0 +1,24 @@
+parameter_defaults:
+
+  NeutronEnableIsolatedMetadata: 'True'
+
+  NovaSchedulerDefaultFilters:
+    - RetryFilter
+    - AggregateInstanceExtraSpecsFilter
+    - AggregateMultiTenancyIsolation
+    - AvailabilityZoneFilter
+    - RamFilter
+    - DiskFilter
+    - ComputeFilter
+    - ComputeCapabilitiesFilter
+    - ImagePropertiesFilter
+
+  IronicCleaningDiskErase: metadata   
+  IronicIPXEEnabled: true   
+  IronicCleaningNetwork: baremetal
+
+  CustomBMVirtualFixedIPs: [{'ip_address':'192.168.68.14'}]
+
+  ServiceNetMap:
+    IronicApiNetwork: custombm
+    IronicNetwork: custombm
