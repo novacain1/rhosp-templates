@@ -1,0 +1,59 @@
+heat_template_version: 2014-10-16
+
+description: >
+  Extra hostname configuration
+
+resources:
+  userdata:
+    type: OS::Heat::MultipartMime
+    properties:
+      parts:
+      - config: {get_resource: ceph_lvm_config}
+
+  ceph_lvm_config:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      config: |
+        #!/bin/bash -x
+        # --- HDD --- #
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:1:0
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:2:0
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:3:0
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:4:0
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:5:0
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:6:0
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:7:0
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:8:0
+        vgcreate ceph_vg_slow1 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:1:0
+        vgcreate ceph_vg_slow2 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:2:0
+        vgcreate ceph_vg_slow3 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:3:0
+        vgcreate ceph_vg_slow4 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:4:0
+        vgcreate ceph_vg_slow5 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:5:0
+        vgcreate ceph_vg_slow6 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:6:0
+        vgcreate ceph_vg_slow7 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:7:0
+        vgcreate ceph_vg_slow8 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:8:0
+        lvcreate -n ceph_lv_data_slow1 -l 100%VG ceph_vg_slow1
+        lvcreate -n ceph_lv_data_slow2 -l 100%VG ceph_vg_slow2
+        lvcreate -n ceph_lv_data_slow3 -l 100%VG ceph_vg_slow3
+        lvcreate -n ceph_lv_data_slow4 -l 100%VG ceph_vg_slow4
+        lvcreate -n ceph_lv_data_slow5 -l 100%VG ceph_vg_slow5
+        lvcreate -n ceph_lv_data_slow6 -l 100%VG ceph_vg_slow6
+        lvcreate -n ceph_lv_data_slow7 -l 100%VG ceph_vg_slow7
+        lvcreate -n ceph_lv_data_slow8 -l 100%VG ceph_vg_slow8
+        # --- SSD --- #
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:9:0
+        pvcreate /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:10:0
+        vgcreate ceph_vg_fast1 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:9:0
+        vgcreate ceph_vg_fast2 /dev/disk/by-path/pci-0000:0c:00.0-scsi-0:2:10:0
+        lvcreate -n ceph_lv_db_fast1 -l 25%VG ceph_vg_fast1
+        lvcreate -n ceph_lv_db_fast2 -l 25%VG ceph_vg_fast1
+        lvcreate -n ceph_lv_db_fast3 -l 25%VG ceph_vg_fast1
+        lvcreate -n ceph_lv_db_fast4 -l 25%VG ceph_vg_fast1
+        lvcreate -n ceph_lv_db_fast1 -l 25%VG ceph_vg_fast2
+        lvcreate -n ceph_lv_db_fast2 -l 25%VG ceph_vg_fast2
+        lvcreate -n ceph_lv_db_fast3 -l 25%VG ceph_vg_fast2
+        lvcreate -n ceph_lv_db_fast4 -l 25%VG ceph_vg_fast2
+
+outputs:
+  OS::stack_id:
+    value: {get_resource: userdata}

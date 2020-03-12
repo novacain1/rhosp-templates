@@ -1,0 +1,17 @@
+[controllers]
+rdu-controller01 ansible_host=10.11.175.50 ansible_ssh_user=heat-admin host_key_checking=False
+rdu-controller02 ansible_host=10.11.175.51 ansible_ssh_user=heat-admin host_key_checking=False
+rdu-controller03 ansible_host=10.11.175.52 ansible_ssh_user=heat-admin host_key_checking=False
+
+[computes]
+rdu-computehci01 ansible_host=10.11.175.53 ansible_ssh_user=heat-admin host_key_checking=False
+rdu-computehci02 ansible_host=10.11.175.54 ansible_ssh_user=heat-admin host_key_checking=False
+rdu-computehci03 ansible_host=10.11.175.55 ansible_ssh_user=heat-admin host_key_checking=False
+rdu-computehci04 ansible_host=10.11.175.56 ansible_ssh_user=heat-admin host_key_checking=False
+
+#[storages]
+#rdu-ceph01 ansible_host=192.168.67.25 ansible_ssh_user=heat-admin host_key_checking=False
+#rdu-ceph02 ansible_host=192.168.67.31 ansible_ssh_user=heat-admin host_key_checking=False
+#rdu-ceph03 ansible_host=192.168.67.26 ansible_ssh_user=heat-admin host_key_checking=False
+
+[vms]

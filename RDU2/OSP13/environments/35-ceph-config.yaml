@@ -1,0 +1,123 @@
+resource_registry:
+  OS::TripleO::Services::CephMon: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-mon.yaml
+  OS::TripleO::Services::CephOSD: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-osd.yaml
+  OS::TripleO::Services::CephClient: /usr/share/openstack-tripleo-heat-templates/docker/services/ceph-ansible/ceph-client.yaml
+
+parameter_defaults:
+  # /var/log/mistral/ceph-install-workflow.log ansible --verbosity level
+  CephAnsiblePlaybookVerbosity: 3
+  CinderEnableIscsiBackend: false
+  CinderEnableRbdBackend: true
+  CinderBackupBackend: ceph
+  NovaEnableRbdBackend: true
+  GlanceBackend: rbd
+  GnocchiBackend: rbd
+
+  CephPoolDefaultPgNum: 128
+  CephConfigOverrides:
+    #bluestore block db size: 67108864
+    #bluestore block wal size: 134217728
+    #journal_size: 5120
+    #max_open_files: 131072
+    mon_max_pg_per_osd: 3072
+    #mon_osd_full_ratio: 90
+    #osd_max_backfills: 1
+    osd_pool_default_size: 3
+    osd_pool_default_min_size: 2
+    osd_pool_default_pg_num: 128
+    osd_pool_default_pgp_num: 128
+    #osd_recovery_op_priority: 3
+    #osd_recovery_max_active: 3
+
+  #CephPools:
+  #  - {"name": .rgw.root, "pg_num": 16, "pgp_num": 16, "application": rgw}
+  #  - {"name": default.rgw.control, "pg_num": 16, "pgp_num": 16, "application": rgw}
+  #  - {"name": default.rgw.meta, "pg_num": 16, "pgp_num": 16, "application": rgw}
+  #  - {"name": default.rgw.log, "pg_num": 16, "pgp_num": 16, "application": rgw}
+  #  - {"name": backups, "pg_num": 16, "pgp_num": 16, "application": rbd}
+  #  - {"name": images, "pg_num": 128, "pgp_num": 128, "application": rbd}
+  #  - {"name": metrics, "pg_num": 16, "pgp_num": 16, "application":openstack_gnocchi}
+  #  - {"name": vms, "pg_num": 512, "pgp_num": 512, "application": rbd}
+  #  - {"name": volumes, "pg_num": 256, "pgp_num": 256, "application": rbd}
+
+  #Filestore
+  #CephAnsibleDisksConfig:
+  #  devices:
+  #    - /dev/sdb
+  #    - /dev/sdc
+  #    - /dev/sdd
+  #    - /dev/sde
+  #    - /dev/sdf
+  #    - /dev/sdg
+  #    - /dev/sdh
+  #    - /dev/sdi
+  #  dedicated_devices:
+  #    - /dev/sdj
+  #    - /dev/sdj
+  #    - /dev/sdj
+  #    - /dev/sdj
+  #    - /dev/sdk
+  #    - /dev/sdk
+  #    - /dev/sdk
+  #    - /dev/sdk
+  #  osd_scenario: non-collocated
+  
+  #BlueStore
+  CephAnsibleDisksConfig:
+    lvm_volumes:
+      - data: ceph_lv_data_slow1
+        data_vg: ceph_vg_slow1
+        db: ceph_lv_db_fast1
+        db_vg: ceph_vg_fast1
+      - data: ceph_lv_data_slow2
+        data_vg: ceph_vg_slow2
+        db: ceph_lv_db_fast2
+        db_vg: ceph_vg_fast1
+      - data: ceph_lv_data_slow3
+        data_vg: ceph_vg_slow3
+        db: ceph_lv_db_fast3
+        db_vg: ceph_vg_fast1
+      - data: ceph_lv_data_slow4
+        data_vg: ceph_vg_slow4
+        db: ceph_lv_db_fast4
+        db_vg: ceph_vg_fast1
+      - data: ceph_lv_data_slow5
+        data_vg: ceph_vg_slow5
+        db: ceph_lv_db_fast1
+        db_vg: ceph_vg_fast2
+      - data: ceph_lv_data_slow6
+        data_vg: ceph_vg_slow6
+        db: ceph_lv_db_fast2
+        db_vg: ceph_vg_fast2
+      - data: ceph_lv_data_slow7
+        data_vg: ceph_vg_slow7
+        db: ceph_lv_db_fast3
+        db_vg: ceph_vg_fast2
+      - data: ceph_lv_data_slow8
+        data_vg: ceph_vg_slow8
+        db: ceph_lv_db_fast4
+        db_vg: ceph_vg_fast2
+    osd_scenario: lvm
+    osd_objectstore: bluestore
+    dmcrypt: False
+
+  #BlueStore easy method trusting rotational flag on blkid
+  #CephAnsibleDisksConfig:
+  #  devices:
+  #    - /dev/sdb
+  #    - /dev/sdc
+  #    - /dev/sdd
+  #    - /dev/sde
+  #    - /dev/sdf
+  #    - /dev/sdg
+  #    - /dev/sdh
+  #    - /dev/sdi
+  #    - /dev/sdj
+  #    - /dev/sdk
+  #  osd_scenario: lvm
+  #  osd_objectstore: bluestore
+  #  dmcrypt: False
+
+  CephAnsibleExtraConfig:
+    ceph_osd_docker_cpu_limit: 2
+    is_hci: true

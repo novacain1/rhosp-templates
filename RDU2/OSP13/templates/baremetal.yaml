@@ -1,0 +1,69 @@
+nodes:
+  - name: baremetal1
+    driver: ipmi
+    resource_class: baremetal
+    properties:
+     cpus: 4
+     cpu_arch: "x86_64"
+     memory_mb: 16384
+     local_gb: 60
+     root_device:
+       name: /dev/sda
+    ports:
+     - address: "00:25:B5:07:00:2F"
+       pxe_enabled: true
+    driver_info:
+     ipmi_address: "10.11.175.241"
+     ipmi_username: "admin"
+     ipmi_password: "CHANGEME"
+  - name: baremetal2
+    driver: ipmi
+    resource_class: baremetal
+    properties:
+     cpus: 4
+     cpu_arch: "x86_64"
+     memory_mb: 16384
+     local_gb: 60
+     root_device:
+       name: /dev/sda
+    ports:
+     - address: "00:25:B5:07:00:0F"
+       pxe_enabled: true
+    driver_info:
+     ipmi_address: "10.11.175.243"
+     ipmi_username: "admin"
+     ipmi_password: "CHANGEME"
+  - name: baremetal3
+    driver: ipmi
+    resource_class: baremetal
+    properties:
+     cpus: 4
+     cpu_arch: "x86_64"
+     memory_mb: 16384
+     local_gb: 60
+     root_device:
+       name: /dev/sda
+    ports:
+     - address: "00:25:B5:07:00:1F"
+       pxe_enabled: true
+    driver_info:
+     ipmi_address: "10.11.175.244"
+     ipmi_username: "admin"
+     ipmi_password: "CHANGEME"
+  - name: baremetal4
+    driver: ipmi
+    resource_class: baremetal
+    properties:
+     cpus: 4
+     cpu_arch: "x86_64"
+     memory_mb: 16384
+     local_gb: 60
+     root_device:
+       name: /dev/sda
+    ports:
+     - address: "00:25:B5:07:00:2E"
+       pxe_enabled: true
+    driver_info:
+     ipmi_address: "10.11.175.238"
+     ipmi_username: "admin"
+     ipmi_password: "CHANGEME"
